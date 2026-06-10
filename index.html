@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Psychologist</title>
+  <link rel="icon" type="image/png" href="lotus.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#9B59B6',
+            'primary-dark': '#7D3C98',
+            secondary: '#E8A0BF',
+            accent: '#D4679A',
+            cream: '#FFF8F9',
+            'cream-dark': '#F8E8EE',
+            charcoal: '#2D2D2D',
+            'charcoal-light': '#4A4A4A',
+            muted: '#8A8A8A',
+            warm: '#FDF0F4',
+          },
+          fontFamily: {
+            heading: ['Cormorant Garamond', 'serif'],
+            body: ['Raleway', 'sans-serif'],
+            logo: ['DM Serif Display', 'serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: #FFF8F9;
+      color: #2D2D2D;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .elegant-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1.5px solid #2D2D2D;
+      background: transparent;
+      color: #2D2D2D;
+      cursor: pointer;
+      transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    }
+    .elegant-btn:hover {
+      background: #2D2D2D;
+      color: #FFF8F9;
+    }
+    .elegant-btn.filled {
+      background: #9B59B6;
+      color: #FFF8F9;
+      border-color: #9B59B6;
+    }
+    .elegant-btn.filled:hover {
+      background: #7D3C98;
+      border-color: #7D3C98;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 1px;
+      background: #E8A0BF;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: #FFFFFF;
+      padding: 2.5rem 2rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+
+    .price-card {
+      background: #FFFFFF;
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+    }
+    .price-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+    .price-card.featured {
+      border: 1.5px solid #9B59B6;
+    }
+    .price-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: #9B59B6;
+    }
+
+    .blog-card {
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-2px);
+    }
+    .blog-card:hover .blog-title {
+      color: #7B8F6B;
+    }
+
+    .lang-btn {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 5px 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #8A8A8A;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .lang-btn.active {
+      color: #2D2D2D;
+      border-bottom: 1px solid #2D2D2D;
+    }
+
+    .nav-link {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4A4A4A;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #9B59B6;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #2D2D2D; }
+    .nav-link:hover::after { width: 100%; }
+
+    .hero-img {
+      background: linear-gradient(135deg, #F8E8EE 0%, #E8D0E8 50%, #D8BFD8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(255,248,249,0.3));
+    }
+
+    .hero-ocean {
+      position: relative;
+      width: 100%;
+      height: 65vh;
+      min-height: 400px;
+      max-height: 650px;
+      overflow: hidden;
+      margin-bottom: -60px;
+      background: #FFF8F9;
+    }
+    .hero-ocean img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 110%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 45%;
+      animation: slideIn 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    .hero-ocean::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: -10px;
+      background: linear-gradient(to bottom, rgba(255,248,249,0) 55%, rgba(255,248,249,0.5) 75%, rgba(255,248,249,0.9) 90%, rgba(255,248,249,1) 95%);
+      pointer-events: none;
+    }
+    @keyframes slideIn {
+      0% { transform: translateX(-10%) scale(1.08); }
+      100% { transform: translateX(0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .service-card, .price-card, .blog-card, .elegant-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 elegant-btn" data-i18n="skip">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm" aria-label="Main navigation">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="flex items-center justify-between h-20 sm:h-24">
+        <a href="#" class="text-2xl sm:text-3xl tracking-tight text-charcoal" aria-label="Online Psychologist home" style="font-family:'DM Serif Display',serif;">
+          Online <span class="text-primary">Psychologist</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about" class="nav-link" data-i18n="nav_about">About</a>
+          <a href="#services" class="nav-link" data-i18n="nav_services">Services</a>
+          <a href="#appointment" class="nav-link" data-i18n="nav_appointment">Pricing</a>
+          <a href="#blog" class="nav-link" data-i18n="nav_blog">Blog</a>
+          <a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a>
+          <div class="flex gap-1 ml-4" role="group" aria-label="Language">
+            <button class="lang-btn" onclick="setLang('en')" id="lang-en">EN</button>
+            <span class="text-muted text-xs self-center">/</span>
+            <button class="lang-btn active" onclick="setLang('bg')" id="lang-bg">BG</button>
+          </div>
+        </div>
+        <div class="flex md:hidden items-center gap-3">
+          <div class="flex gap-1" role="group" aria-label="Language">
+            <button class="lang-btn" onclick="setLang('en')" id="lang-en-m" style="font-size:0.65rem;">EN</button>
+            <span class="text-muted text-xs self-center">/</span>
+            <button class="lang-btn active" onclick="setLang('bg')" id="lang-bg-m" style="font-size:0.65rem;">BG</button>
+          </div>
+          <button class="text-charcoal p-2" aria-label="Open menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-cream border-t border-charcoal/10 px-6 pb-8 pt-6">
+      <div class="flex flex-col gap-5">
+        <a href="#about" class="nav-link text-base" onclick="document.getElementById('mobile-menu').classList.add('hidden')" data-i18n="nav_about">About</a>
+        <a href="#services" class="nav-link text-base" onclick="document.getElementById('mobile-menu').classList.add('hidden')" data-i18n="nav_services">Services</a>
+        <a href="#appointment" class="nav-link text-base" onclick="document.getElementById('mobile-menu').classList.add('hidden')" data-i18n="nav_appointment">Pricing</a>
+        <a href="#blog" class="nav-link text-base" onclick="document.getElementById('mobile-menu').classList.add('hidden')" data-i18n="nav_blog">Blog</a>
+        <a href="#contact" class="nav-link text-base" onclick="document.getElementById('mobile-menu').classList.add('hidden')" data-i18n="nav_contact">Contact</a>
+        <a href="#appointment" class="elegant-btn filled text-center mt-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')" data-i18n="nav_cta">Book a Session</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ===================== OCEAN HEADER ===================== -->
+    <div class="hero-ocean" style="margin-top:80px;">
+      <img src="ocean.jpg" alt="Calm ocean waves">
+    </div>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="flex items-center pt-10 pb-20 sm:pt-14 sm:pb-24 relative z-10">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div>
+            <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-6 reveal" data-i18n="hero_tag">Online Consultations</p>
+            <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-light text-charcoal leading-[1.1] mb-8 reveal" data-i18n-html="hero_title">
+              The Solution for<br><em class="font-normal italic text-primary">Anxiety, Difficult Emotions</em><br>& Tension
+            </h1>
+            <p class="font-body text-charcoal-light text-lg leading-relaxed max-w-md mb-10 reveal" data-i18n="hero_desc">
+              Professional online consultations to help you overcome anxiety, manage difficult emotions, and release the tension that holds you back.
+            </p>
+            <div class="flex flex-wrap gap-4 reveal">
+              <a href="#appointment" class="elegant-btn filled" data-i18n="hero_cta">Book a Session</a>
+              <a href="#about" class="elegant-btn" data-i18n="hero_learn">Learn More</a>
+            </div>
+          </div>
+          <!-- Lotus flower image -->
+          <div class="hidden md:flex items-center justify-center reveal">
+            <img src="lotus.png" alt="Lotus flower" style="max-width:280px;width:100%;height:auto;opacity:0.7;filter:invert(32%) sepia(60%) saturate(500%) hue-rotate(250deg) brightness(85%);" loading="lazy">
+          </div>
+          <!-- hero image removed --><div style="display:none"><svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                <defs>
+                  <clipPath id="cL"><path d="M42,50 C42,50 45,15 95,10 C145,5 180,30 190,65 C195,85 185,110 165,130 C145,150 135,175 135,200 C135,225 145,250 165,270 C185,290 195,315 190,345 C185,370 165,390 130,395 L42,395 Z"/></clipPath>
+                  <clipPath id="cR"><path d="M758,50 C758,50 755,15 705,10 C655,5 620,30 610,65 C605,85 615,110 635,130 C655,150 665,175 665,200 C665,225 655,250 635,270 C615,290 605,315 610,345 C615,370 635,390 670,395 L758,395 Z"/></clipPath>
+                </defs>
+                <!-- Left head: back of skull + face profile facing right -->
+                <path d="M42,395 L42,50 C42,50 45,15 95,10 C145,5 180,30 190,65 C195,85 185,110 165,130 C145,150 135,175 135,200 C135,225 145,250 165,270 C185,290 195,315 190,345 C185,370 165,390 130,395 Z" fill="#4A3460"/>
+                <!-- Face features right side -->
+                <path d="M190,65 C197,55 210,48 215,55 C220,62 212,72 205,78 L200,82 C195,87 192,95 192,103 C192,108 195,112 200,115 L210,120 C218,125 222,133 220,142 C218,150 212,155 205,155 L200,155 C195,155 192,158 192,163 C192,168 195,172 200,175 L205,178 C208,180 210,183 210,187 C210,192 206,196 200,198 L190,202 C185,204 182,210 185,218 C188,226 194,232 200,235 L207,238 C215,242 220,250 218,260 L215,270 C212,282 215,295 225,305 C235,315 238,328 235,342 L232,355 C230,365 230,375 232,385 L232,395 L130,395 C165,390 185,370 190,345 C195,315 185,290 165,270 C145,250 135,225 135,200 C135,175 145,150 165,130 C185,110 195,85 190,65 Z" fill="#4A3460"/>
+                <!-- Right head: mirrored -->
+                <path d="M758,395 L758,50 C758,50 755,15 705,10 C655,5 620,30 610,65 C605,85 615,110 635,130 C655,150 665,175 665,200 C665,225 655,250 635,270 C615,290 605,315 610,345 C615,370 635,390 670,395 Z" fill="#4A3460"/>
+                <path d="M610,65 C603,55 590,48 585,55 C580,62 588,72 595,78 L600,82 C605,87 608,95 608,103 C608,108 605,112 600,115 L590,120 C582,125 578,133 580,142 C582,150 588,155 595,155 L600,155 C605,155 608,158 608,163 C608,168 605,172 600,175 L595,178 C592,180 590,183 590,187 C590,192 594,196 600,198 L610,202 C615,204 618,210 615,218 C612,226 606,232 600,235 L593,238 C585,242 580,250 582,260 L585,270 C588,282 585,295 575,305 C565,315 562,328 565,342 L568,355 C570,365 570,375 568,385 L568,395 L670,395 C635,390 615,370 610,345 C605,315 615,290 635,270 C655,250 665,225 665,200 C665,175 655,150 635,130 C615,110 605,85 610,65 Z" fill="#4A3460"/>
+
+                <!-- Tangled lines in left head -->
+                <g clip-path="url(#cL)">
+                  <g transform="translate(115,200)">
+                    <ellipse rx="55" ry="42" stroke="#fff" stroke-width="2.8" fill="none" transform="rotate(18)"/>
+                    <ellipse rx="42" ry="55" stroke="#fff" stroke-width="2.8" fill="none" transform="rotate(-15)"/>
+                    <ellipse rx="58" ry="30" stroke="#fff" stroke-width="2.5" fill="none" transform="rotate(48)"/>
+                    <ellipse rx="30" ry="55" stroke="#fff" stroke-width="2.5" fill="none" transform="rotate(-42)"/>
+                    <ellipse rx="50" ry="25" stroke="#fff" stroke-width="2.2" fill="none" transform="rotate(72)"/>
+                    <ellipse rx="25" ry="50" stroke="#fff" stroke-width="2.2" fill="none" transform="rotate(5)"/>
+                    <ellipse rx="45" ry="20" stroke="#fff" stroke-width="2" fill="none" transform="rotate(-58)"/>
+                    <ellipse rx="20" ry="45" stroke="#fff" stroke-width="2" fill="none" transform="rotate(32)"/>
+                    <ellipse rx="38" ry="15" stroke="#fff" stroke-width="1.8" fill="none" transform="rotate(-30)"/>
+                    <ellipse rx="15" ry="38" stroke="#fff" stroke-width="1.8" fill="none" transform="rotate(60)"/>
+                  </g>
+                </g>
+
+                <!-- Spiral in right head -->
+                <g clip-path="url(#cR)">
+                  <g transform="translate(685,200)">
+                    <path d="M0,-4 A4,4 0 1,1 0,4 A9,9 0 1,0 0,-13 A18,18 0 1,1 0,22 A27,27 0 1,0 0,-31 A36,36 0 1,1 0,40 A45,45 0 1,0 0,-49 A54,54 0 1,1 0,58 A63,63 0 1,0 0,-67" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                  </g>
+                </g>
+
+                <!-- Connecting arc -->
+                <path d="M215,55 Q400,-15 585,55" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.85">
+                  <animate attributeName="d" dur="5s" repeatCount="indefinite" values="M215,55 Q400,-15 585,55;M215,55 Q400,-25 585,55;M215,55 Q400,-15 585,55"/>
+                </path>
+
+                <!-- Leaves left -->
+                <g transform="translate(55,400)" opacity="0.5">
+                  <ellipse cx="-10" cy="-8" rx="12" ry="5" transform="rotate(-40 -10 -8)" fill="#D4A574"/>
+                  <ellipse cx="-18" cy="-15" rx="12" ry="5" transform="rotate(-55 -18 -15)" fill="#D4A574" opacity="0.7"/>
+                  <ellipse cx="10" cy="-8" rx="12" ry="5" transform="rotate(40 10 -8)" fill="#D4A574"/>
+                  <ellipse cx="18" cy="-15" rx="12" ry="5" transform="rotate(55 18 -15)" fill="#D4A574" opacity="0.7"/>
+                </g>
+                <!-- Leaves right -->
+                <g transform="translate(745,400)" opacity="0.5">
+                  <ellipse cx="-10" cy="-8" rx="12" ry="5" transform="rotate(-40 -10 -8)" fill="#D4A574"/>
+                  <ellipse cx="-18" cy="-15" rx="12" ry="5" transform="rotate(-55 -18 -15)" fill="#D4A574" opacity="0.7"/>
+                  <ellipse cx="10" cy="-8" rx="12" ry="5" transform="rotate(40 10 -8)" fill="#D4A574"/>
+                  <ellipse cx="18" cy="-15" rx="12" ry="5" transform="rotate(55 18 -15)" fill="#D4A574" opacity="0.7"/>
+                </g>
+              </svg></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-16 reveal">
+          <div class="section-divider mb-8"></div>
+          <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-4" data-i18n="about_tag">About Me</p>
+          <h2 class="font-heading text-4xl sm:text-5xl font-light text-charcoal" data-i18n="about_heading">Get to Know Me</h2>
+        </div>
+        <div class="grid md:grid-cols-5 gap-10 items-center">
+          <div class="md:col-span-2 reveal">
+            <div class="overflow-hidden mx-auto" style="max-width:350px;aspect-ratio:3/4;border-radius:16px;border:3px solid #9B59B6;">
+              <img src="anna-maria.jpg" alt="Anna-Maria Stoynovska" style="width:100%;height:100%;object-fit:cover;object-position:center 28%;" loading="lazy">
+            </div>
+          </div>
+          <div class="md:col-span-3 reveal">
+            <p class="text-charcoal-light leading-relaxed mb-4" data-i18n="about_bio1">
+              Казвам се Анна-Мария Стойновска, психолог — завършил в Холандия, а сега се обучавам в Дружеството по позитивна психотерапия (ДППБ).
+            </p>
+            <p class="text-charcoal-light leading-relaxed mb-4" data-i18n="about_bio2">
+              Работя с хора с тревожност, трудни емоции и напрежение, които търсят начин как да се справят с тях.
+            </p>
+            <p class="text-charcoal-light leading-relaxed mb-4" data-i18n="about_bio3">
+              Не предлагам готови решения или перфектни съвети. Предлагам пространство — където онова, което чувстваш, получава място. Където заедно разбираме какво се случва и защо. Не седя над процеса. Седя в него — заедно с теб.
+            </p>
+            <p class="text-charcoal-light leading-relaxed mb-8" data-i18n="about_bio4">
+              Работата ни няма да спре трудните моменти от живота. Но ще се научим да ги посрещаме по различен начин — с инструменти, с разбиране, и с това което вече носиш в себе си. Защото всеки човек има вродени ресурси. Понякога просто трябва някой да седне до теб докато ги намерите и развиете заедно.
+            </p>
+            <a href="#contact" class="elegant-btn" data-i18n="about_cta">Запазете консултация</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section id="services" class="py-24 sm:py-32 bg-white">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-16 reveal">
+          <div class="section-divider mb-8"></div>
+          <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-4" data-i18n="services_tag">What I Offer</p>
+          <h2 class="font-heading text-4xl sm:text-5xl font-light text-charcoal mb-6" data-i18n="services_heading">Services</h2>
+          <p class="font-body text-charcoal-light max-w-xl mx-auto" data-i18n="services_desc">
+            Всеки човек е уникален. Предлагам персонализиран подход, съобразен с вашите индивидуални нужди. От всяка точка на света, в удобно за Вас време.
+          </p>
+        </div>
+        <!-- Main Service -->
+        <div class="max-w-3xl mx-auto reveal">
+          <div class="service-card text-center py-12 px-8 sm:px-12">
+            <div class="w-16 h-16 mx-auto mb-8 flex items-center justify-center">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="18" r="8" stroke="#9B59B6" stroke-width="1.5"/>
+                <path d="M8 42C8 32 15 26 24 26C33 26 40 32 40 42" stroke="#9B59B6" stroke-width="1.5" fill="none"/>
+                <circle cx="24" cy="24" r="22" stroke="#9B59B6" stroke-width="1" opacity="0.3"/>
+                <path d="M36 8L42 4M12 8L6 4" stroke="#9B59B6" stroke-width="1" opacity="0.4"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-3xl sm:text-4xl font-light text-charcoal mb-4" data-i18n="s_main_title">Individual Online Consultation</h3>
+            <p class="text-charcoal-light leading-relaxed max-w-lg mx-auto mb-10" data-i18n="s_main_desc">A personal, confidential session where we work together on what matters most to you.</p>
+
+            <div class="grid sm:grid-cols-3 gap-6 sm:gap-8">
+              <!-- Anxiety -->
+              <div class="text-center reveal">
+                <div class="w-20 h-20 mx-auto mb-5 rounded-full bg-warm flex items-center justify-center">
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <path d="M18 4C10 4 4 10 4 18C4 26 10 32 18 32C26 32 32 26 32 18C32 10 26 4 18 4Z" stroke="#9B59B6" stroke-width="1.5" fill="none"/>
+                    <path d="M14 14C14 14 16 16 18 14C20 12 22 14 22 14" stroke="#9B59B6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M12 22C14 26 22 26 24 22" stroke="#9B59B6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <line x1="18" y1="6" x2="18" y2="2" stroke="#9B59B6" stroke-width="1" opacity="0.5"/>
+                    <line x1="26" y1="8" x2="28" y2="5" stroke="#9B59B6" stroke-width="1" opacity="0.5"/>
+                    <line x1="10" y1="8" x2="8" y2="5" stroke="#9B59B6" stroke-width="1" opacity="0.5"/>
+                  </svg>
+                </div>
+                <h4 class="font-heading text-xl font-medium text-charcoal mb-2" data-i18n="s_anx_title">Anxiety</h4>
+                <p class="text-charcoal-light text-sm leading-relaxed" data-i18n="s_anx_desc">Overcome constant worry, panic attacks, and restless thoughts that prevent you from living fully.</p>
+              </div>
+
+              <!-- Tension -->
+              <div class="text-center reveal">
+                <div class="w-20 h-20 mx-auto mb-5 rounded-full bg-cream-dark flex items-center justify-center">
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <path d="M8 18C8 18 14 10 18 10C22 10 28 18 28 18C28 18 22 26 18 26C14 26 8 18 8 18Z" stroke="#9B59B6" stroke-width="1.5" fill="none"/>
+                    <path d="M6 12L10 16M30 12L26 16M6 24L10 20M30 24L26 20" stroke="#9B59B6" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+                    <circle cx="18" cy="18" r="3" stroke="#9B59B6" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </div>
+                <h4 class="font-heading text-xl font-medium text-charcoal mb-2" data-i18n="s_ten_title">Tension</h4>
+                <p class="text-charcoal-light text-sm leading-relaxed" data-i18n="s_ten_desc">Release accumulated stress and tension, rediscover calm and restore your inner balance.</p>
+              </div>
+
+              <!-- Emotional Difficulties -->
+              <div class="text-center reveal">
+                <div class="w-20 h-20 mx-auto mb-5 rounded-full bg-warm flex items-center justify-center">
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <path d="M18 6C12 6 8 10 8 16C8 26 18 32 18 32C18 32 28 26 28 16C28 10 24 6 18 6Z" stroke="#9B59B6" stroke-width="1.5" fill="none"/>
+                    <path d="M14 16L18 20L22 16" stroke="#9B59B6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <h4 class="font-heading text-xl font-medium text-charcoal mb-2" data-i18n="s_emo_title">Emotional Difficulties</h4>
+                <p class="text-charcoal-light text-sm leading-relaxed" data-i18n="s_emo_desc">Understand and navigate complex emotions, building healthier ways to process and express how you feel.</p>
+              </div>
+            </div>
+
+            <div class="mt-10">
+              <a href="#contact" class="elegant-btn filled" data-i18n="s_cta">Запазете консултация</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== QUOTE BANNER ===================== -->
+    <section class="py-20 sm:py-28" style="background:linear-gradient(rgba(255,248,249,0.85),rgba(255,248,249,0.85)),url('ocean.jpg') center/cover fixed;">
+      <div class="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 text-center reveal">
+        <svg class="mx-auto mb-6 opacity-20" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M10 25C10 20 14 15 18 13L17 11C11 13 6 18 6 25C6 30 9 33 13 33C16 33 18 31 18 28C18 25 16 23 13 23C11 23 10 24 10 25Z" fill="#2D2D2D"/>
+          <path d="M28 25C28 20 32 15 36 13L35 11C29 13 24 18 24 25C24 30 27 33 31 33C34 33 36 31 36 28C36 25 34 23 31 23C29 23 28 24 28 25Z" fill="#2D2D2D"/>
+        </svg>
+        <blockquote class="font-heading text-3xl sm:text-4xl font-light text-charcoal italic leading-snug mb-6" data-i18n="quote_text">
+          Разликата между добрия и лошия живот е в това колко добре преминавате през огъня.
+        </blockquote>
+        <p class="text-muted text-sm tracking-wider uppercase" data-i18n="quote_author">Карл Густав Юнг</p>
+      </div>
+    </section>
+
+    <!-- ===================== APPOINTMENT / PRICING ===================== -->
+    <section id="appointment" class="py-24 sm:py-32 bg-white">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-16 reveal">
+          <div class="section-divider mb-8"></div>
+          <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-4" data-i18n="pricing_tag">Pricing</p>
+          <h2 class="font-heading text-4xl sm:text-5xl font-light text-charcoal mb-6" data-i18n="pricing_heading">Запазете час</h2>
+        </div>
+        <div class="max-w-md mx-auto">
+          <div class="price-card featured text-center reveal">
+            <p class="text-xs tracking-[0.2em] uppercase text-primary mb-4 font-body font-semibold" data-i18n="p1_label">Online Consultation</p>
+            <div class="mb-6">
+              <span class="font-heading text-6xl sm:text-7xl font-light text-charcoal">35</span>
+              <span class="font-body text-lg text-muted ml-1" data-i18n="p_currency">EUR</span>
+            </div>
+            <div class="section-divider mb-6"></div>
+            <ul class="space-y-3 mb-8 text-sm text-charcoal-light">
+              <li data-i18n="p1_f1">50-minute session</li>
+              <li data-i18n="p1_f2">Personalized approach</li>
+              <li data-i18n="p1_f3">Flexible scheduling</li>
+            </ul>
+            <a href="#contact" class="elegant-btn filled w-full text-center block" data-i18n="p_book">Запази час</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BLOG ===================== -->
+    <section id="blog" class="py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="text-center mb-16 reveal">
+          <div class="section-divider mb-8"></div>
+          <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-4" data-i18n="blog_tag">Insights</p>
+          <h2 class="font-heading text-4xl sm:text-5xl font-light text-charcoal" data-i18n="blog_heading">Blog</h2>
+        </div>
+        <div class="text-center reveal">
+          <p class="text-charcoal-light italic font-heading text-xl" data-i18n="blog_coming">Очаквайте скоро...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT / CTA ===================== -->
+    <section id="contact" class="py-24 sm:py-32" style="background:linear-gradient(rgba(255,255,255,0.88),rgba(255,255,255,0.88)),url('ocean.jpg') center/cover fixed;">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="reveal">
+            <div class="section-divider mb-8" style="margin:0;"></div>
+            <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-4 mt-8" data-i18n="contact_tag">Get in Touch</p>
+            <h2 class="font-heading text-4xl sm:text-5xl font-light text-charcoal mb-6" data-i18n="contact_heading">Ready to Begin?</h2>
+            <p class="text-charcoal-light leading-relaxed mb-8" data-i18n="contact_desc">
+              Taking the first step is often the hardest part. Reach out today, and let's start your journey together.
+            </p>
+            <div class="space-y-4 mb-8">
+              <div class="flex items-center gap-4">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 4H17V16H3V4Z" stroke="#9B59B6" stroke-width="1.5"/><path d="M3 4L10 11L17 4" stroke="#9B59B6" stroke-width="1.5"/></svg>
+                <a href="mailto:anna.maria.stoynovska@gmail.com" class="text-charcoal-light hover:text-primary transition-colors">anna.maria.stoynovska@gmail.com</a>
+              </div>
+              <div class="flex items-center gap-4">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3H8L10 7L7.5 9C8.5 11 9 11.5 11 13L13 10.5L17 12.5V16.5C17 17 16.5 18 14 18C7 18 2 13 2 6C2 3.5 3 3 4 3Z" stroke="#9B59B6" stroke-width="1.5" fill="none"/></svg>
+                <a href="tel:+359885980148" class="text-charcoal-light hover:text-primary transition-colors">+359 88 598 0148</a>
+              </div>
+              <div class="flex items-center gap-4">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#9B59B6" stroke-width="1.5"/><path d="M10 5V10L14 12" stroke="#9B59B6" stroke-width="1.5"/></svg>
+                <span class="text-charcoal-light" data-i18n="contact_hours">Пон - Неделя: 7:00 - 19:00</span>
+              </div>
+            </div>
+            <a href="#appointment" class="elegant-btn filled" data-i18n="contact_cta">Book Your Session</a>
+          </div>
+          <div class="reveal">
+            <form class="space-y-5" action="https://formsubmit.co/anna.maria.stoynovska@gmail.com" method="POST">
+              <input type="hidden" name="_subject" value="Ново съобщение от Online Psychologist сайта">
+              <input type="hidden" name="_captcha" value="false">
+              <div>
+                <label class="block text-xs tracking-[0.15em] uppercase text-muted mb-2 font-body" for="name" data-i18n="form_name">Вашето име</label>
+                <input id="name" name="name" type="text" required class="w-full border border-charcoal/20 bg-cream px-4 py-3 font-body text-sm text-charcoal focus:outline-none focus:border-primary transition-colors" placeholder="">
+              </div>
+              <div>
+                <label class="block text-xs tracking-[0.15em] uppercase text-muted mb-2 font-body" for="email" data-i18n="form_email">Имейл</label>
+                <input id="email" name="email" type="email" required class="w-full border border-charcoal/20 bg-cream px-4 py-3 font-body text-sm text-charcoal focus:outline-none focus:border-primary transition-colors" placeholder="">
+              </div>
+              <div>
+                <label class="block text-xs tracking-[0.15em] uppercase text-muted mb-2 font-body" for="message" data-i18n="form_message">Съобщение</label>
+                <textarea id="message" name="message" rows="4" required class="w-full border border-charcoal/20 bg-cream px-4 py-3 font-body text-sm text-charcoal focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+              </div>
+              <button type="submit" class="elegant-btn filled w-full text-center" data-i18n="form_submit">Изпратете съобщение</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-charcoal/10">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <a href="#" class="text-xl tracking-tight text-charcoal" style="font-family:'DM Serif Display',serif;">
+          Online <span class="text-primary">Psychologist</span>
+        </a>
+        <div class="flex gap-6">
+          <a href="#about" class="text-sm text-muted hover:text-charcoal transition-colors" data-i18n="nav_about">About</a>
+          <a href="#services" class="text-sm text-muted hover:text-charcoal transition-colors" data-i18n="nav_services">Services</a>
+          <a href="#appointment" class="text-sm text-muted hover:text-charcoal transition-colors" data-i18n="nav_appointment">Pricing</a>
+          <a href="#blog" class="text-sm text-muted hover:text-charcoal transition-colors" data-i18n="nav_blog">Blog</a>
+        </div>
+        <p class="text-xs text-muted" data-i18n="footer_copy">&copy; 2026 Online Psychologist. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── i18n translations ──
+    const T = {
+      en: {
+        skip: 'Skip to main content',
+        nav_about: 'About',
+        nav_services: 'Services',
+        nav_appointment: 'Pricing',
+        nav_blog: 'Blog',
+        nav_contact: 'Contact',
+        nav_cta: 'Book a Session',
+        menu: 'Menu',
+        hero_tag: 'Online Consultations',
+        hero_title: 'The Solution for<br><em class="font-normal italic text-primary">Anxiety, Difficult Emotions</em><br>& Tension',
+        hero_desc: 'Professional online consultations to help you overcome anxiety, manage difficult emotions, and release the tension that holds you back.',
+        hero_cta: 'Book a Session',
+        hero_learn: 'Learn More',
+        hero_img_text: 'Calm. Balance. Clarity.',
+        about_tag: 'About Me',
+        about_heading: 'Get to Know Me',
+        about_bio1: 'My name is Anna-Maria Stoynovska, a psychologist — educated in the Netherlands, currently training at the Bulgarian Society of Positive Psychotherapy (DPPB).',
+        about_bio2: 'I work with people experiencing anxiety, difficult emotions, and tension, who are looking for a way to cope with them.',
+        about_bio3: 'I don\'t offer ready-made solutions or perfect advice. I offer a space — where what you feel is given room. Where together we understand what is happening and why. I don\'t sit above the process. I sit in it — together with you.',
+        about_bio4: 'Our work won\'t stop life\'s difficult moments. But we will learn to meet them differently — with tools, with understanding, and with what you already carry within you. Because every person has innate resources. Sometimes you just need someone to sit beside you while you find and develop them together.',
+        about_cta: 'Book a Consultation',
+        about_photo: 'Photo placeholder',
+        services_tag: 'What I Offer',
+        services_heading: 'Services',
+        services_desc: 'Every person is unique. I offer a personalized approach tailored to your individual needs. From anywhere in the world, at a time convenient for you.',
+        s_main_title: 'Individual Online Consultation',
+        s_main_desc: 'A personal, confidential session where we work together on what matters most to you.',
+        s_anx_title: 'Anxiety',
+        s_anx_desc: 'Overcome constant worry, panic attacks, and restless thoughts that prevent you from living fully.',
+        s_ten_title: 'Tension',
+        s_ten_desc: 'Release accumulated stress and tension, rediscover calm and restore your inner balance.',
+        s_emo_title: 'Emotional Difficulties',
+        s_emo_desc: 'Understand and navigate complex emotions, building healthier ways to process and express how you feel.',
+        s_cta: 'Book a Consultation',
+        quote_text: '"The difference between a good life and a bad life is how well you walk through the fire."',
+        quote_author: 'Carl Gustav Jung',
+        pricing_tag: 'Pricing',
+        pricing_heading: 'Make an Appointment',
+        p1_label: 'Online Consultation',
+        p_currency: 'EUR',
+        p_book: 'Book Now',
+        p1_f1: '50-minute session',
+        p1_f2: 'Personalized approach',
+        p1_f3: 'Flexible scheduling',
+        blog_tag: 'Insights',
+        blog_heading: 'Blog',
+        blog_coming: 'Coming soon...',
+        contact_tag: 'Get in Touch',
+        contact_heading: 'Ready to Begin?',
+        contact_desc: 'Taking the first step is often the hardest part. Reach out today, and let\'s start your journey together.',
+        contact_hours: 'Mon - Sun: 7:00 - 19:00',
+        contact_cta: 'Book Your Session',
+        form_name: 'Your Name',
+        form_email: 'Email',
+        form_message: 'Message',
+        form_submit: 'Send Message',
+        footer_copy: '&copy; 2026 Online Psychologist. All rights reserved.',
+      },
+      bg: {
+        skip: 'Преминете към основното съдържание',
+        nav_about: 'За мен',
+        nav_services: 'Услуги',
+        nav_appointment: 'Цени',
+        nav_blog: 'Блог',
+        nav_contact: 'Контакти',
+        nav_cta: 'Запазете час',
+        menu: 'Меню',
+        hero_tag: 'Онлайн консултации',
+        hero_title: 'Решението на<br><em class="font-normal italic text-primary">тревожността, трудните емоции</em><br>и напрежението',
+        hero_desc: 'Професионални онлайн консултации, които ще ви помогнат да преодолеете тревожността, да управлявате трудните емоции и да освободите напрежението, което ви задържа.',
+        hero_cta: 'Запазете час',
+        hero_learn: 'Научете повече',
+        hero_img_text: 'Спокойствие. Баланс. Яснота.',
+        about_tag: 'За мен',
+        about_heading: 'Запознайте се с мен',
+        about_bio1: 'Казвам се Анна-Мария Стойновска, психолог — завършил в Холандия, а сега се обучавам в Дружеството по позитивна психотерапия (ДППБ).',
+        about_bio2: 'Работя с хора с тревожност, трудни емоции и напрежение, които търсят начин как да се справят с тях.',
+        about_bio3: 'Не предлагам готови решения или перфектни съвети. Предлагам пространство — където онова, което чувстваш, получава място. Където заедно разбираме какво се случва и защо. Не седя над процеса. Седя в него — заедно с теб.',
+        about_bio4: 'Работата ни няма да спре трудните моменти от живота. Но ще се научим да ги посрещаме по различен начин — с инструменти, с разбиране, и с това което вече носиш в себе си. Защото всеки човек има вродени ресурси. Понякога просто трябва някой да седне до теб докато ги намерите и развиете заедно.',
+        about_cta: 'Запазете консултация',
+        about_photo: 'Място за снимка',
+        services_tag: 'Какво предлагам',
+        services_heading: 'Услуги',
+        services_desc: 'Всеки човек е уникален. Предлагам персонализиран подход, съобразен с вашите индивидуални нужди. От всяка точка на света, в удобно за Вас време.',
+        s_main_title: 'Индивидуална онлайн консултация',
+        s_main_desc: 'Лична, конфиденциална сесия, в която работим заедно върху това, което е най-важно за вас.',
+        s_anx_title: 'Тревожност',
+        s_anx_desc: 'Преодолейте постоянното безпокойство, паник атаките и неспокойните мисли, които ви пречат да живеете пълноценно.',
+        s_ten_title: 'Напрежение',
+        s_ten_desc: 'Освободете натрупания стрес и напрежение, преоткрийте спокойствието и възстановете вътрешния си баланс.',
+        s_emo_title: 'Емоционални трудности',
+        s_emo_desc: 'Разберете и управлявайте сложните емоции, като изградите по-здравословни начини да обработвате и изразявате чувствата си.',
+        s_cta: 'Запазете консултация',
+        quote_text: '„Разликата между добрия и лошия живот е в това колко добре преминавате през огъня."',
+        quote_author: 'Карл Густав Юнг',
+        pricing_tag: 'Цени',
+        pricing_heading: 'Запазете час',
+        p1_label: 'Онлайн консултация',
+        p_currency: 'EUR',
+        p_book: 'Запази час',
+        p1_f1: '50-минутна сесия',
+        p1_f2: 'Персонализиран подход',
+        p1_f3: 'Гъвкав график',
+        blog_tag: 'Статии',
+        blog_heading: 'Блог',
+        blog_coming: 'Очаквайте скоро...',
+        contact_tag: 'Свържете се',
+        contact_heading: 'Готови ли сте да започнете?',
+        contact_desc: 'Първата стъпка често е най-трудната. Свържете се днес и нека започнем вашето пътуване заедно.',
+        contact_hours: 'Пон - Неделя: 7:00 - 19:00',
+        contact_cta: 'Запазете час',
+        form_name: 'Вашето име',
+        form_email: 'Имейл',
+        form_message: 'Съобщение',
+        form_submit: 'Изпратете съобщение',
+        footer_copy: '&copy; 2026 Online Psychologist. Всички права запазени.',
+      }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'bg';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[lang][key]) el.textContent = T[lang][key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (T[lang][key]) el.innerHTML = T[lang][key];
+      });
+
+      // Update active language buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll(`[id^="lang-${lang}"]`).forEach(btn => btn.classList.add('active'));
+    }
+
+    // ── Scroll reveal ──
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Initialize language
+    setLang(currentLang);
+  </script>
+</body>
+</html>
