@@ -150,8 +150,45 @@
       transform: translateY(-2px);
     }
     .blog-card:hover .blog-title {
-      color: #7B8F6B;
+      color: #9B59B6;
     }
+
+    .article-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(45,45,45,0.55);
+      backdrop-filter: blur(3px);
+      padding: 5vh 1rem;
+      overflow-y: auto;
+    }
+    .article-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+    .article-modal-inner {
+      background: #FFF8F9;
+      max-width: 680px;
+      width: 100%;
+      border-radius: 16px;
+      padding: 3rem 2rem 3.5rem;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+      animation: modalIn 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    @media (min-width: 640px) { .article-modal-inner { padding: 3.5rem 3.5rem 4rem; } }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .article-close {
+      position: absolute;
+      top: 1rem; right: 1.25rem;
+      font-size: 2rem;
+      line-height: 1;
+      color: #8A8A8A;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .article-close:hover { color: #9B59B6; }
+    .article-body p { font-size: 1.02rem; }
 
     .lang-btn {
       font-family: 'Raleway', sans-serif;
@@ -544,11 +581,63 @@
           <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-4" data-i18n="blog_tag">Insights</p>
           <h2 class="font-heading text-4xl sm:text-5xl font-light text-charcoal" data-i18n="blog_heading">Blog</h2>
         </div>
-        <div class="text-center reveal">
-          <p class="text-charcoal-light italic font-heading text-xl" data-i18n="blog_coming">Очаквайте скоро...</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <!-- Article 1 -->
+          <article class="blog-card reveal" onclick="openArticle('article-1')" tabindex="0" onkeydown="if(event.key==='Enter')openArticle('article-1')">
+            <div class="aspect-[4/3] rounded-sm mb-5 flex items-center justify-center overflow-hidden" style="background:linear-gradient(135deg,#F8E8EE,#E8D0E8);">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none" class="opacity-60"><path d="M30 48C30 48 8 36 8 21C8 13 14 8 21 8C25 8 28 10 30 13C32 10 35 8 39 8C46 8 52 13 52 21C52 36 30 48 30 48Z" stroke="#9B59B6" stroke-width="1.5" fill="none"/></svg>
+            </div>
+            <h3 class="font-heading text-2xl text-charcoal mb-2 blog-title transition-colors duration-300">Приказка за любовта и лудостта</h3>
+            <p class="text-sm text-charcoal-light leading-relaxed">Разказва се в тази легенда, че веднъж се събрали на едно място на земята всички чувства и качества на хората...</p>
+            <span class="inline-block mt-3 text-xs tracking-[0.15em] uppercase text-primary">Прочети &rarr;</span>
+          </article>
         </div>
       </div>
     </section>
+
+    <!-- Article Modal -->
+    <div id="article-1" class="article-modal" onclick="if(event.target===this)closeArticle('article-1')">
+      <div class="article-modal-inner">
+        <button class="article-close" aria-label="Затвори" onclick="closeArticle('article-1')">&times;</button>
+        <p class="font-body text-xs tracking-[0.25em] uppercase text-muted mb-3">Приказка</p>
+        <h2 class="font-heading text-3xl sm:text-4xl font-light text-charcoal mb-8">Приказка за любовта и лудостта</h2>
+        <div class="article-body text-charcoal-light leading-relaxed space-y-5">
+          <p>Разказва се в тази легенда, че веднъж се събрали на едно място на земята всички чувства и качества на хората.</p>
+          <p>Когато ОТЕГЧЕНИЕТО за трети път се прозяло, ЛУДОСТТА, както винаги достатъчно луда, му предложила: „Искаш ли да играем на криеница?"</p>
+          <p>ИНТРИГАТА надигнала заинтересовано глава и ЛЮБОПИТСТВОТО, без да може да се сдържи, попитало: „На криеница! И каква е тази игра?"</p>
+          <p>„Това е една игра – му обяснила ЛУДОСТТА – в която аз си затварям очите и започвам да броя от едно до един милион, докато през това време вие се скривате и когато спра да броя, първия от вас, когото намеря ще заеме моето място за да се продължи играта."</p>
+          <p>ЕНТУСИАЗМЪТ се включил веднага в играта, последван от ЕУФОРИЯТА.</p>
+          <p>РАДОСТТА подскачала така весело, че накрая убедила СЪМНЕНИЕТО, дори и АПАТИЯТА, която никога нищо не я интересувало. Но не всички искали да участват.</p>
+          <p>ИСТИНАТА предпочитала да не се крие. За какво? Като в крайна сметка винаги я разкривали.</p>
+          <p>НАДМЕННОСТТА казала, че това е една много глупава игра (но всъщност я дразнело това, че идеята не била нейна).</p>
+          <p>КОВАРСТВОТО предпочело да не рискува…</p>
+          <p>Едно… две… три… започнала да брои ЛУДОСТТА.</p>
+          <p>Първият, който се скрил бил МЪРЗЕЛЪТ, който както винаги се спрял още зад третия камък от пътя.</p>
+          <p>ВЯРАТА се качила на небето.</p>
+          <p>ЗАВИСТТА се скрила зад сянката на ТРИУМФА, който със свои собствени усилия успял да се добере до върха на най-високото дърво.</p>
+          <p>ЩЕДРОСТТА почти не могла да се скрие, всяко място, което намирала ѝ изглеждало прекрасно за някой от нейните приятели – например едно кристално чисто езеро, та то е идеално за КРАСОТАТА. Короната на едно дърво – перфектно място за СТРАХА. Полетът на една пеперуда – най-доброто скривалище за СЛАДОСТРАСТИЕТО. Поривът на вятъра – прекрасно убежище за СВОБОДАТА. Така че най-накрая ЩЕДРОСТТА се скрила в един слънчев лъч.</p>
+          <p>ЕГОИЗМЪТ за сметка на това си намерил едно много добро местенце още от самото начало, проветриво, удобно… точно като за него.</p>
+          <p>ЛЪЖАТА се скрила на дъното на океаните (но нали си е ЛЪЖА, всъщност била зад дъгата).</p>
+          <p>СТРАСТТА и ЖЕЛАНИЕТО били в центъра на вулканите.</p>
+          <p>ЗАБРАВАТА… (забравих къде се скрила!)… но това не е толкова важно.</p>
+          <p>Когато ЛУДОСТТА преброила 999 999 ЛЮБОВТА все още не била намерила място, където да се скрие. Всичко било вече заето. Накрая забелязала един розов храст и разнежена решила да се скрие сред неговите цветчета.</p>
+          <p>„Един милион", преброила ЛУДОСТТА и започнала да търси.</p>
+          <p>Първият, който се появил бил МЪРЗЕЛЪТ, само на три крачки от камъка, където била ЛУДОСТТА.</p>
+          <p>След него дочула ВЯРАТА, която си бъбрела с Бог на небето.</p>
+          <p>СТРАСТТА и ЖЕЛАНИЕТО почувствала във вибрациите на вулканите.</p>
+          <p>По невнимание открила ЗАВИСТТА и естествено могла да заключи къде е ТРИУМФЪТ.</p>
+          <p>ЕГОИЗМЪТ нямало защо да го търси, той сам бил излязъл, отчаян от своето скривалище, което се оказало едно гнездо на оси.</p>
+          <p>От толкова обикаляне ЛУДОСТТА почувствала жажда и, приближавайки се до езерото, открила КРАСОТАТА.</p>
+          <p>Със СЪМНЕНИЕТО се оказало още по-лесно, намерила го седнало върху една скала без да е решило все още къде да се скрие.</p>
+          <p>Така намерила всички: ТАЛАНТА между свежата трева, МЪКАТА в една тъмна пещера, ЛЪЖАТА зад дъгата (или всъщност на дъното на океаните!), намерила включително и ЗАБРАВАТА, която вече била забравила, че играе на криеница.</p>
+          <p>Но само ЛЮБОВТА не се появила от нито едно място.</p>
+          <p>ЛУДОСТТА я търсила зад всяко дърво, под всяко поточе на планетата, на върховете на всички планини и тъкмо когато вече щяла да се предаде, забелязала един розов храст с много розови цветчета. Взела една вила и започнала да раздвижва клоните на храста, но изведнъж чула болезнен вик.</p>
+          <p>Бодлите на розата били наранили очите на ЛЮБОВТА.</p>
+          <p>ЛУДОСТТА не знаела какво да направи: плакала, умолявала, искала извинение, дори обещала да стане неин водач.</p>
+          <p>Оттогава нататък, от първия път, в който се играло на криеница на Земята, ЛЮБОВТА Е СЛЯПА И ЛУДОСТТА ВИНАГИ Я ПРИДРУЖАВА!</p>
+        </div>
+      </div>
+    </div>
 
     <!-- ===================== CONTACT / CTA ===================== -->
     <section id="contact" class="py-24 sm:py-32" style="background:linear-gradient(rgba(255,255,255,0.88),rgba(255,255,255,0.88)),url('ocean.jpg') center/cover fixed;">
@@ -580,6 +669,10 @@
               <div class="flex items-center gap-4">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#9B59B6" stroke-width="1.5"/><path d="M10 5V10L14 12" stroke="#9B59B6" stroke-width="1.5"/></svg>
                 <span class="text-charcoal-light" data-i18n="contact_hours">Пон - Неделя: 7:00 - 19:00</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#9B59B6"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+                <a href="https://wa.me/359885980148" target="_blank" rel="noopener" class="text-charcoal-light hover:text-primary transition-colors" data-i18n="contact_whatsapp">Пишете ми в WhatsApp</a>
               </div>
               <div class="flex items-center gap-4">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9B59B6" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#9B59B6" stroke="none"/></svg>
@@ -626,6 +719,9 @@
           <a href="#blog" class="text-sm text-muted hover:text-charcoal transition-colors" data-i18n="nav_blog">Blog</a>
           <a href="https://www.instagram.com/onlinepsychologist.bg/" target="_blank" rel="noopener" aria-label="Instagram" class="text-muted hover:text-primary transition-colors">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/359885980148" target="_blank" rel="noopener" aria-label="WhatsApp" class="text-muted hover:text-primary transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
           </a>
         </div>
         <p class="text-xs text-muted" data-i18n="footer_copy">© 2026 Online Psychologist. All rights reserved.</p>
@@ -691,6 +787,7 @@
         contact_desc: 'Първата стъпка често е най-трудната. За да запишете час, просто се обадете — ще намерим заедно най-подходящото време за вас.',
         contact_call_label: 'Запишете час по телефон',
         contact_hours: 'Пон - Неделя: 7:00 - 19:00',
+        contact_whatsapp: 'Пишете ми в WhatsApp',
         contact_cta: 'Запазете час',
         form_intro: 'Или ми изпратете съобщение и ще се свържа с вас:',
         form_name: 'Вашето име',
@@ -721,6 +818,19 @@
 
     // Сайтът е само на български
     setLang('bg');
+
+    // ── Article modal ──
+    function openArticle(id) {
+      document.getElementById(id).classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeArticle(id) {
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.article-modal.open').forEach(m => { m.classList.remove('open'); document.body.style.overflow=''; });
+    });
   </script>
 </body>
 </html>
