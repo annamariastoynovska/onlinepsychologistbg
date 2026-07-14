@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18230799983"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18230799983');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Запазете час | Online Psychologist</title>
+  <meta name="description" content="Запазете час за индивидуална онлайн психологическа консултация. Обадете се или пишете в WhatsApp.">
+  <link rel="icon" type="image/png" href="lotus.png">
+
+  <!-- Open Graph (за споделяне) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Запазете час — Online Psychologist">
+  <meta property="og:description" content="Индивидуална онлайн психологическа консултация. Обадете се на 088 598 0148, за да запазите час.">
+  <meta property="og:image" content="lotus.png">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: #FFF8F9;
+      color: #2D2D2D;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+
+    header {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,248,249,0.95);
+      backdrop-filter: blur(6px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .header-inner {
+      max-width: 640px; margin: 0 auto;
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #2D2D2D; text-decoration: none; }
+    .logo span { color: #9B59B6; }
+    .back-link {
+      font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #8A8A8A; text-decoration: none; transition: color 0.3s ease;
+    }
+    .back-link:hover { color: #9B59B6; }
+
+    main { flex: 1; padding: 3.5rem 0 4rem; }
+    .tag {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #8A8A8A; margin-bottom: 0.9rem; text-align: center;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 7vw, 3.6rem);
+      line-height: 1.1;
+      color: #2D2D2D;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    .lead { text-align: center; color: #4A4A4A; font-size: 1.05rem; max-width: 30rem; margin: 0 auto 2.6rem; }
+
+    /* Price card */
+    .price-card {
+      background: #fff;
+      border: 1.5px solid #9B59B6;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .price-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: #9B59B6; border-radius: 16px 16px 0 0;
+    }
+    .price-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9B59B6; font-weight: 600; margin-bottom: 1rem; }
+    .price-amount { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4rem; color: #2D2D2D; line-height: 1; }
+    .price-amount span { font-family: 'Raleway', sans-serif; font-size: 1.1rem; color: #8A8A8A; }
+    .price-divider { width: 60px; height: 1px; background: #E8A0BF; margin: 1.4rem auto; }
+    .price-list { list-style: none; color: #4A4A4A; font-size: 0.95rem; }
+    .price-list li { margin-bottom: 0.6rem; }
+
+    /* Big call box */
+    .call-box {
+      display: block; padding: 1.6rem; background: #fff;
+      border: 2px solid #9B59B6; border-radius: 14px;
+      text-decoration: none; text-align: center; margin-bottom: 1rem;
+      transition: background 0.3s ease;
+    }
+    .call-box:hover { background: #9B59B6; }
+    .call-box:hover * { color: #fff !important; }
+    .call-box small { display: block; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.4rem; }
+    .call-box strong { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 2.1rem; color: #9B59B6; display: inline-flex; align-items: center; gap: 0.6rem; }
+
+    /* WhatsApp button */
+    .wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      padding: 1rem; border-radius: 14px; background: #25D366; color: #fff;
+      text-decoration: none; font-weight: 500; font-size: 0.95rem; margin-bottom: 2.2rem;
+      transition: opacity 0.3s ease;
+    }
+    .wa-btn:hover { opacity: 0.9; }
+    .wa-btn svg { fill: #fff; }
+
+    /* Details */
+    .details { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.6rem; }
+    .detail-row { display: flex; align-items: center; gap: 0.9rem; justify-content: center; }
+    .detail-row a, .detail-row span { color: #4A4A4A; text-decoration: none; font-size: 0.95rem; }
+    .detail-row a:hover { color: #9B59B6; }
+
+    /* Share */
+    .share { padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.08); text-align: center; }
+    .share-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 1rem; }
+    .share-row { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.1rem; border: 1.5px solid #9B59B6; border-radius: 999px;
+      color: #9B59B6; background: transparent; font-size: 0.8rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: background 0.3s ease, color 0.3s ease;
+    }
+    .share-btn:hover { background: #9B59B6; color: #fff; }
+    .share-btn svg { fill: currentColor; }
+
+    footer { border-top: 1px solid rgba(0,0,0,0.08); padding: 2rem 0; text-align: center; }
+    footer p { font-size: 0.75rem; color: #8A8A8A; }
+
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #2D2D2D; color: #fff; padding: 0.7rem 1.3rem; border-radius: 999px;
+      font-size: 0.85rem; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">Online <span>Psychologist</span></a>
+      <a href="index.html" class="back-link">&larr; Обратно</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <p class="tag">Запазване на час</p>
+      <h1>Запазете час</h1>
+      <p class="lead">Индивидуална онлайн психологическа консултация — от всяка точка на света, в удобно за Вас време.</p>
+
+      <div class="price-card">
+        <p class="price-label">Онлайн консултация</p>
+        <div class="price-amount">35 <span>EUR</span></div>
+        <div class="price-divider"></div>
+        <ul class="price-list">
+          <li>50-минутна сесия</li>
+          <li>Персонализиран подход</li>
+          <li>Гъвкав график</li>
+        </ul>
+      </div>
+
+      <a href="tel:+359885980148" class="call-box">
+        <small>Запишете час по телефон</small>
+        <strong>
+          <svg width="26" height="26" viewBox="0 0 20 20" fill="none"><path d="M4 3H8L10 7L7.5 9C8.5 11 9 11.5 11 13L13 10.5L17 12.5V16.5C17 17 16.5 18 14 18C7 18 2 13 2 6C2 3.5 3 3 4 3Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          088 598 0148
+        </strong>
+      </a>
+
+      <a href="https://wa.me/359885980148" target="_blank" rel="noopener" class="wa-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        Пишете ми в WhatsApp
+      </a>
+
+      <div class="details">
+        <div class="detail-row">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 4H17V16H3V4Z" stroke="#9B59B6" stroke-width="1.5"/><path d="M3 4L10 11L17 4" stroke="#9B59B6" stroke-width="1.5"/></svg>
+          <a href="mailto:anna.maria.stoynovska@gmail.com">anna.maria.stoynovska@gmail.com</a>
+        </div>
+        <div class="detail-row">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#9B59B6" stroke-width="1.5"/><path d="M10 5V10L14 12" stroke="#9B59B6" stroke-width="1.5"/></svg>
+          <span>Пон - Неделя: 7:00 - 19:00</span>
+        </div>
+      </div>
+
+      <div class="share">
+        <p class="share-label">Сподели</p>
+        <div class="share-row">
+          <a class="share-btn" id="share-fb" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99C18.34 21.13 22 16.99 22 12z"/></svg>
+            Facebook
+          </a>
+          <a class="share-btn" id="share-wa" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.52 13.97c-.25.7-1.47 1.34-2.02 1.42-.52.08-1.18.11-1.9-.12-.44-.14-1-.32-1.72-.63-3.03-1.31-5.01-4.36-5.16-4.56-.15-.2-1.24-1.64-1.24-3.13s.78-2.22 1.06-2.53c.28-.3.61-.38.81-.38.2 0 .41 0 .58.01.19.01.44-.07.69.53.25.6.85 2.08.93 2.23.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.37 1.46.3.15.47.12.65-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2.01.96.3.15.5.22.57.35.07.12.07.72-.18 1.42z"/></svg>
+            WhatsApp
+          </a>
+          <button class="share-btn" id="share-copy">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+            Копирай линка
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Online Psychologist. Всички права запазени.</p>
+  </footer>
+
+  <div class="toast" id="toast">Линкът е копиран!</div>
+
+  <script>
+    var url = window.location.href;
+    var title = 'Запазете час за онлайн психологическа консултация';
+    document.getElementById('share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+    document.getElementById('share-wa').href = 'https://wa.me/?text=' + encodeURIComponent(title + ' ' + url);
+    document.getElementById('share-copy').addEventListener('click', function() {
+      navigator.clipboard.writeText(url).then(function() {
+        var t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(function(){ t.classList.remove('show'); }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
