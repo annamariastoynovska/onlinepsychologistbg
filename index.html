@@ -152,6 +152,9 @@
     .blog-card:hover .blog-title {
       color: #9B59B6;
     }
+    .blog-card:hover img {
+      transform: scale(1.05);
+    }
 
     .lang-btn {
       font-family: 'Raleway', sans-serif;
@@ -553,8 +556,8 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <!-- Article 1 -->
           <a href="prikazka-lyubovta-ludostta.html" class="blog-card reveal block">
-            <div class="aspect-[4/3] rounded-sm mb-5 flex items-center justify-center overflow-hidden" style="background:linear-gradient(135deg,#F8E8EE,#E8D0E8);">
-              <svg width="60" height="60" viewBox="0 0 60 60" fill="none" class="opacity-60"><path d="M30 48C30 48 8 36 8 21C8 13 14 8 21 8C25 8 28 10 30 13C32 10 35 8 39 8C46 8 52 13 52 21C52 36 30 48 30 48Z" stroke="#9B59B6" stroke-width="1.5" fill="none"/></svg>
+            <div class="aspect-[4/3] rounded-sm mb-5 overflow-hidden">
+              <img src="river.jpg" alt="Река между скали" class="w-full h-full object-cover" loading="lazy" style="transition:transform 0.5s ease;">
             </div>
             <h3 class="font-heading text-2xl text-charcoal mb-2 blog-title transition-colors duration-300">Приказка за любовта и лудостта</h3>
             <p class="text-sm text-charcoal-light leading-relaxed">Разказва се в тази легенда, че веднъж се събрали на едно място на земята всички чувства и качества на хората...</p>
