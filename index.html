@@ -240,9 +240,29 @@
       100% { transform: translateX(0) scale(1); }
     }
 
+    /* Sticky CTA — like an incoming call */
+    #sticky-cta { animation: ctaPulse 2s ease-out infinite; }
+    #sticky-cta:hover { animation: none; }
+    @keyframes ctaPulse {
+      0%   { box-shadow: 0 8px 24px rgba(155,89,182,0.4), 0 0 0 0 rgba(155,89,182,0.55); }
+      70%  { box-shadow: 0 8px 24px rgba(155,89,182,0.4), 0 0 0 18px rgba(155,89,182,0); }
+      100% { box-shadow: 0 8px 24px rgba(155,89,182,0.4), 0 0 0 0 rgba(155,89,182,0); }
+    }
+    #sticky-cta .cta-icon {
+      transform-origin: center;
+      animation: phoneRing 2s ease-in-out infinite;
+    }
+    @keyframes phoneRing {
+      0%, 60%, 100% { transform: rotate(0); }
+      5%, 15%, 25%  { transform: rotate(-14deg); }
+      10%, 20%, 30% { transform: rotate(14deg); }
+      35%           { transform: rotate(0); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .service-card, .price-card, .blog-card, .elegant-btn { transition: none; }
+      #sticky-cta, #sticky-cta .cta-icon { animation: none; }
     }
   </style>
 </head>
@@ -640,10 +660,10 @@
   </main>
 
   <!-- Sticky CTA button -->
-  <a href="zapazete-chas.html" id="sticky-cta" aria-label="Запазете час"
-     class="fixed z-[60] bottom-5 right-5 sm:bottom-8 sm:right-8 inline-flex items-center gap-2 bg-primary text-white font-heading rounded-full shadow-lg hover:bg-primary-dark transition-all duration-300"
-     style="padding:14px 22px; box-shadow:0 8px 24px rgba(155,89,182,0.4); opacity:0; transform:translateY(20px); pointer-events:none;">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3H8L10 7L7.5 9C8.5 11 9 11.5 11 13L13 10.5L17 12.5V16.5C17 17 16.5 18 14 18C7 18 2 13 2 6C2 3.5 3 3 4 3Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+  <a href="zapazete-chas.html" id="sticky-cta" aria-label="Обадете се за час"
+     class="fixed z-[60] bottom-5 right-5 sm:bottom-8 sm:right-8 inline-flex items-center gap-2 bg-primary text-white font-heading rounded-full hover:bg-primary-dark"
+     style="padding:14px 24px; opacity:0; transform:translateY(20px); pointer-events:none; transition:opacity .3s ease, transform .3s ease, background .3s ease;">
+    <svg class="cta-icon" width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M4 3H8L10 7L7.5 9C8.5 11 9 11.5 11 13L13 10.5L17 12.5V16.5C17 17 16.5 18 14 18C7 18 2 13 2 6C2 3.5 3 3 4 3Z" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
     <span class="text-base sm:text-lg" data-i18n="sticky_cta">Запазете час</span>
   </a>
 
