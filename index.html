@@ -639,6 +639,14 @@
     </section>
   </main>
 
+  <!-- Sticky CTA button -->
+  <a href="zapazete-chas.html" id="sticky-cta" aria-label="Запазете час"
+     class="fixed z-[60] bottom-5 right-5 sm:bottom-8 sm:right-8 inline-flex items-center gap-2 bg-primary text-white font-heading rounded-full shadow-lg hover:bg-primary-dark transition-all duration-300"
+     style="padding:14px 22px; box-shadow:0 8px 24px rgba(155,89,182,0.4); opacity:0; transform:translateY(20px); pointer-events:none;">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3H8L10 7L7.5 9C8.5 11 9 11.5 11 13L13 10.5L17 12.5V16.5C17 17 16.5 18 14 18C7 18 2 13 2 6C2 3.5 3 3 4 3Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+    <span class="text-base sm:text-lg" data-i18n="sticky_cta">Запазете час</span>
+  </a>
+
   <!-- Footer -->
   <footer class="py-12 border-t border-charcoal/10">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -712,6 +720,7 @@
         p_currency: 'EUR',
         p_book: 'Запазете час',
         p_first: 'Как протича първата онлайн консултация?',
+        sticky_cta: 'Запазете час',
         p_note: 'Часовете се записват по телефон',
         p1_f1: '50-минутна сесия',
         p1_f2: 'Персонализиран подход',
@@ -756,6 +765,24 @@
     // Сайтът е само на български
     setLang('bg');
 
+    // ── Sticky CTA: показва се след скролване под hero ──
+    (function(){
+      var cta = document.getElementById('sticky-cta');
+      if(!cta) return;
+      function toggle(){
+        if(window.scrollY > 500){
+          cta.style.opacity = '1';
+          cta.style.transform = 'translateY(0)';
+          cta.style.pointerEvents = 'auto';
+        } else {
+          cta.style.opacity = '0';
+          cta.style.transform = 'translateY(20px)';
+          cta.style.pointerEvents = 'none';
+        }
+      }
+      window.addEventListener('scroll', toggle, { passive: true });
+      toggle();
+    })();
   </script>
 </body>
 </html>
