@@ -154,7 +154,8 @@
     .book-main .total { font-family: var(--display); font-size: 2.6rem; line-height: 1; }
     .book-main .total small { font-family: var(--body); font-size: 1rem; color: var(--muted); margin-left: 6px; }
     .book-main .note { color: var(--muted); }
-    .book-main .btn { max-width: 100%; }
+    .book-main .note a { white-space: nowrap; }
+    .book-main .btn { max-width: 100%; text-align: center; }
     .book-side { display: grid; gap: 16px; align-content: start; border-left: 1px solid var(--line); padding-left: clamp(20px, 3vw, 40px); min-width: 0; }
     .book-side dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 0.95rem; }
     .book-side dt { color: var(--muted); }
@@ -294,8 +295,9 @@
         <div class="book-main">
           <p class="eyebrow">Онлайн консултация</p>
           <p class="total">35 € <small>50 минути онлайн</small></p>
-          <p class="note">Ще намерим заедно удобен час.</p>
-          <a class="btn" href="tel:+359885980148">Обадете се: 088 598 0148</a>
+          <p class="note">Платете онлайн и след плащането ще се свържа с Вас, за да уточним удобен ден и час.</p>
+          <a class="btn" href="https://book.stripe.com/6oU6oIcoL2NobQM6nPawo00" onclick="if(window.fbq){fbq('track','InitiateCheckout',{value:35,currency:'EUR'});fbq('trackCustom','PaymentMethod',{method:'card'});}">Запишете и платете онлайн&nbsp;·&nbsp;35&nbsp;€</a>
+          <p class="note">Плащате сигурно с карта. Предпочитате първо да говорим? Обадете се: <a href="tel:+359885980148">088 598 0148</a></p>
         </div>
         <aside class="book-side">
           <p class="eyebrow">Или ми пишете</p>
@@ -322,7 +324,7 @@
         <details><summary>Колко сесии ще ми трябват?</summary><p>Зависи от това, с което идвате. Някои хора идват за няколко срещи около конкретна ситуация, други остават по-дълго. След първия час ще имате по-ясна представа, и решението винаги е Ваше.</p></details>
         <details><summary>Какво е позитивна психотерапия?</summary><p>Метод, който работи едновременно с трудностите и с ресурсите на човека. Не търсим само „какво е счупено“, а и какво вече Ви помага да се справяте.</p></details>
         <details><summary>А ако не ми допадне?</summary><p>Това е нормално и се случва. Връзката с психолога е важна. Ако усетите, че не сме подходящи един за друг, ще Ви помогна да намерите друг специалист.</p></details>
-        <details><summary>Как плащам и мога ли да отменя?</summary><p>Цената е 35 € за 50 минути. Как да платите, уточняваме, когато запишем часа. Ако не можете да дойдете, пишете ми възможно най-рано и ще преместим часа.</p></details>
+        <details><summary>Как плащам и мога ли да отменя?</summary><p>Цената е 35 € за 50 минути. Можете да платите онлайн с карта при записването или да се обадите и да уточним заедно. Ако не можете да дойдете, пишете ми възможно най-рано и ще преместим часа.</p></details>
         <details><summary>Какво ми трябва за срещата?</summary><p>Телефон или лаптоп с камера, стабилен интернет и място, където никой няма да Ви прекъсва. Слушалки помагат, ако не сте сами вкъщи.</p></details>
       </div>
     </section>
