@@ -116,6 +116,7 @@
     .chat i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .chat.wa i { background: #25D366; }
     .chat.vb i { background: #7360F2; }
+    .chat.ms i { background: #0866FF; }
     .portrait { margin: 0; justify-self: center; width: min(100%, 400px); }
     .portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 200px 200px 14px 14px; }
     .portrait figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; text-align: center; }
@@ -147,6 +148,15 @@
     .privacy { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
     .privacy div { display: grid; gap: 8px; align-content: start; }
     .privacy p { color: var(--muted); font-size: 0.97rem; }
+
+    /* Calendar */
+    .cal-card { background: #FFFFFF; border: 1px solid var(--line); border-radius: 18px; padding: clamp(4px, 1.5vw, 16px); overflow: hidden; }
+    .cal-embed { width: 100%; min-height: 560px; overflow: hidden; }
+    .cal-embed iframe { display: block; width: 100% !important; max-width: 100%; }
+    .cal-after { display: grid; gap: 14px; justify-items: start; margin-top: 18px; }
+    .cal-after .note { color: var(--muted); font-size: 0.95rem; }
+    .cal-after .note a { font-weight: 600; }
+    .alt-head { margin: clamp(40px, 6vw, 64px) 0 18px; }
 
     /* Booking */
     .booking { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 40px); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); }
@@ -290,6 +300,17 @@
       <div class="block-head narrow">
         <p class="eyebrow">Запишете час</p>
         <h2>Изберете ден и час.</h2>
+        <p class="sub-lead">Онлайн консултация, 50 минути. Часовете са по българско време.</p>
+      </div>
+      <div class="cal-card">
+        <div class="cal-embed" id="cal-konsultacia"></div>
+      </div>
+      <div class="cal-after">
+        <p class="note">Ако календарът не се показва: <a href="https://cal.com/onlinepsychologist/konsultacia" target="_blank" rel="noopener">Запазете час в календара</a></p>
+        <a class="chat ms" href="https://m.me/856376934234641?utm_source=site&amp;utm_medium=button&amp;utm_campaign=messenger&amp;utm_content=zapazete-chas" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в Messenger</a>
+      </div>
+      <div class="block-head narrow alt-head">
+        <p class="eyebrow">Други начини за записване</p>
       </div>
       <div class="booking">
         <div class="book-main">
@@ -352,5 +373,35 @@
   <span>35 € · 50 минути онлайн</span>
   <a class="btn small" href="#zapis">Изберете час</a>
 </div>
+
+<!-- Cal.com inline embed -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "konsultacia", { origin: "https://app.cal.com" });
+  Cal.ns.konsultacia("inline", {
+    elementOrSelector: "#cal-konsultacia",
+    calLink: "onlinepsychologist/konsultacia",
+    config: { layout: "month_view", theme: "light" }
+  });
+  Cal.ns.konsultacia("ui", {
+    theme: "light",
+    hideEventTypeDetails: false,
+    layout: "month_view",
+    cssVarsPerTheme: {
+      light: {
+        "cal-brand": "#7E5F93",
+        "cal-brand-emphasis": "#6A4F7D",
+        "cal-brand-text": "#FFFFFF",
+        "cal-bg": "#FFFFFF",
+        "cal-bg-emphasis": "#E8E0EE",
+        "cal-bg-subtle": "#F3F1F4",
+        "cal-bg-muted": "#F3F1F4",
+        "cal-text-emphasis": "#25231D",
+        "cal-border-booker": "#FFFFFF",
+        "cal-border-booker-width": "0px"
+      }
+    }
+  });
+</script>
 </body>
 </html>
