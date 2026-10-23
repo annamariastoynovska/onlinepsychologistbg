@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18230799983"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18230799983');
+  </script>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1359305889034155');
+    fbq('track', 'PageView');
+    (function () {
+      var id = new URLSearchParams(window.location.search).get('session_id');
+      if (!id) return;
+      var key = 'fbPurchaseSessions';
+      var fired = [];
+      try { fired = JSON.parse(localStorage.getItem(key)) || []; } catch (e) {}
+      if (!Array.isArray(fired)) fired = [];
+      if (fired.indexOf(id) !== -1) return;
+      fbq('track', 'Purchase', {value: 35, currency: 'EUR'}, {eventID: id});
+      fired.push(id);
+      try { localStorage.setItem(key, JSON.stringify(fired.slice(-20))); } catch (e) {}
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1359305889034155&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Благодаря Ви | Анна-Мария Стойновска</title>
+  <meta name="description" content="Плащането за онлайн консултацията е получено. Ще се свържа с Вас, за да уточним удобен ден и час.">
+  <link rel="icon" type="image/png" href="lotus.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Благодаря Ви! Плащането е получено.">
+  <meta property="og:image" content="lotus.png">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,600;1,500&family=Onest:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --paper: #F3F1F4;
+      --surface: #FBFAFC;
+      --ink: #25231D;
+      --muted: #69645A;
+      --olive: #5C5930;
+      --lilac: #7E5F93;
+      --lilac-soft: #E8E0EE;
+      --line: #DCD6DF;
+      --on-lilac: #FFFFFF;
+      --display: "Alegreya", "Georgia", "Times New Roman", serif;
+      --body: "Onest", "Segoe UI", system-ui, sans-serif;
+      --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+      --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.4rem);
+      --step-2: clamp(1.55rem, 1.35rem + 1vw, 2.1rem);
+      --step-3: clamp(2.2rem, 1.7rem + 2.4vw, 3.6rem);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #18161B; --surface: #211E25; --ink: #EEEAE3; --muted: #ABA59A;
+        --olive: #C2BC85; --lilac: #C7AADB; --lilac-soft: #2D2634; --line: #36303C; --on-lilac: #1B1720;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: #18161B; --surface: #211E25; --ink: #EEEAE3; --muted: #ABA59A;
+      --olive: #C2BC85; --lilac: #C7AADB; --lilac-soft: #2D2634; --line: #36303C; --on-lilac: #1B1720;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: var(--step-0); line-height: 1.6; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+    h1 { font-family: var(--display); font-weight: 500; line-height: 1.15; text-wrap: balance; margin: 0; font-size: var(--step-3); letter-spacing: -0.01em; }
+    p { margin: 0; }
+    .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); font-weight: 600; }
+    a { color: var(--lilac); }
+    :focus-visible { outline: 2px solid var(--lilac); outline-offset: 3px; border-radius: 4px; }
+
+    .top { padding-block: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .brand { font-family: var(--display); font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+    .brand span { color: var(--lilac); }
+    .back-link { font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+    .back-link:hover { color: var(--lilac); }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font: 600 1rem/1 var(--body); padding: 16px 26px; border-radius: 999px; border: 0; cursor: pointer; text-decoration: none; background: var(--lilac); color: var(--on-lilac); transition: transform .15s ease, filter .15s ease; max-width: 100%; }
+    .btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .chat-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chat { display: inline-flex; align-items: center; gap: 9px; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; background: var(--surface); }
+    .chat:hover { border-color: var(--lilac); }
+    .chat i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .chat.wa i { background: #25D366; }
+    .chat.vb i { background: #7360F2; }
+
+    main { flex: 1; display: grid; align-content: center; padding-block: clamp(32px, 8vw, 96px); }
+    .thanks { max-width: 680px; display: grid; gap: 22px; justify-items: start; }
+    .thanks .lead { font-size: var(--step-1); color: var(--muted); line-height: 1.5; max-width: 40ch; }
+    .contact { display: grid; gap: 14px; justify-items: start; padding-top: 22px; border-top: 1px solid var(--line); width: 100%; }
+
+    footer.site { border-top: 1px solid var(--line); padding-block: 28px 40px; font-size: 0.88rem; color: var(--muted); display: grid; gap: 10px; }
+    footer.site a { color: inherit; }
+    .crisis { color: var(--ink); }
+
+    @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">Online <span>Psychologist</span></a>
+    <a class="back-link" href="index.html">&larr; Към началото</a>
+  </header>
+
+  <main>
+    <section class="thanks">
+      <p class="eyebrow">Онлайн консултация · 50 минути</p>
+      <h1>Благодаря Ви! Плащането е получено.</h1>
+      <p class="lead">Ще се свържа с Вас до края на деня, за да уточним удобен ден и час. Ако предпочитате, можете и Вие да ми се обадите или да ми пишете.</p>
+      <div class="contact">
+        <a class="btn" href="tel:+359885980148">Обадете се: 088 598 0148</a>
+        <div class="chat-btns">
+          <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в WhatsApp</a>
+          <a class="chat vb" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><i aria-hidden="true"></i>Пишете ми във Viber</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <p class="crisis">Ако сте в непосредствена опасност или мислите да си навредите, обадете се веднага на <b>112</b>.</p>
+    <p>Анна-Мария Стойновска · психолог · <a href="mailto:anna.maria.stoynovska@gmail.com">anna.maria.stoynovska@gmail.com</a> · <a href="tel:+359885980148">088 598 0148</a></p>
+    <p>© 2026 Online Psychologist</p>
+  </footer>
+</div>
+</body>
+</html>
