@@ -10,6 +10,7 @@
     gtag('js', new Date());
     gtag('config', 'AW-18230799983');
   </script>
+  <script src="/js/track.js"></script>
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -21,8 +22,8 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1359305889034155');
-    fbq('track', 'PageView');
-    fbq('track', 'ViewContent', {content_name: 'Онлайн консултация 50 мин', value: 35, currency: 'EUR'});
+    track('PageView');
+    track('ViewContent', {content_name: 'Онлайн консултация 50 мин', value: 35, currency: 'EUR'});
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1359305889034155&ev=PageView&noscript=1"
@@ -97,12 +98,24 @@
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font: 600 1rem/1 var(--body); padding: 16px 26px; border-radius: 999px; border: 0; cursor: pointer; text-decoration: none; background: var(--lilac); color: var(--on-lilac); transition: transform .15s ease, filter .15s ease; }
     .btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
     .btn.small { padding: 11px 18px; font-size: 0.92rem; }
+    .btn.viber { background: #7360F2; color: #FFFFFF; font-size: 1.08rem; padding: 18px 30px; }
+    .btn.viber.small { font-size: 0.92rem; padding: 11px 18px; }
+    .btn.viber svg { flex: 0 0 auto; }
+    .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 500; }
+    .btn.ghost:hover { border-color: var(--lilac); }
+    .book-side .btn { max-width: 100%; text-align: center; justify-self: start; }
+    .book-side .note { color: var(--muted); }
+    .viber-hint { display: none; font-size: 0.88rem; color: var(--muted); }
+    .viber-hint a { white-space: nowrap; }
+    @media (hover: hover) and (pointer: fine) { .viber-hint { display: block; } }
+    .pay-alt { font-size: 0.92rem; color: var(--muted); }
+    .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; }
 
     /* Hero */
     .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(28px, 5vw, 64px); align-items: center; padding-block: 28px 64px; }
     .hero-copy { display: grid; gap: 22px; min-width: 0; }
     .hero-copy .lead { font-size: var(--step-1); color: var(--muted); max-width: 34ch; line-height: 1.5; }
-    .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+    .hero-cta { display: grid; gap: 12px; justify-items: start; }
     .price-line { font-size: 0.95rem; color: var(--muted); }
     .price-line strong { color: var(--ink); font-weight: 600; }
     .creds { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 32px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.92rem; color: var(--muted); }
@@ -110,12 +123,10 @@
     .cred-title { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--olive); font-weight: 600; }
     .creds ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
     .creds li::marker { color: var(--lilac); }
-    .chat-btns { display: flex; flex-wrap: wrap; gap: 10px; }
     .chat { display: inline-flex; align-items: center; gap: 9px; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; background: var(--surface); }
     .chat:hover { border-color: var(--lilac); }
     .chat i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .chat.wa i { background: #25D366; }
-    .chat.vb i { background: #7360F2; }
     .portrait { margin: 0; justify-self: center; width: min(100%, 400px); }
     .portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 200px 200px 14px 14px; }
     .portrait figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; text-align: center; }
@@ -171,7 +182,7 @@
 
     .closing { text-align: center; display: grid; gap: 18px; justify-items: center; }
     .closing p { color: var(--muted); max-width: 46ch; }
-    .closing .chat-btns { justify-content: center; }
+    .closing .cta-row { justify-content: center; }
 
     footer.site { border-top: 1px solid var(--line); padding-block: 28px 40px; font-size: 0.88rem; color: var(--muted); display: grid; gap: 10px; }
     footer.site a { color: inherit; }
@@ -186,8 +197,15 @@
       .topics, .privacy, .steps, .creds { grid-template-columns: minmax(0, 1fr); }
       .book-side { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 22px; }
       .top .btn { display: none; }
+      .cta-row { width: 100%; }
+      .cta-row .btn.viber, .cta-row .chat { width: 100%; justify-content: center; }
+      .cta-row .chat { padding-block: 14px; }
+      .book-side .btn { width: 100%; padding-inline: 18px; }
+      .hero-copy .lead { order: 1; }
+      .hero-copy .creds { order: 2; }
       .sticky-cta { display: flex; position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); gap: 12px; align-items: center; justify-content: space-between; z-index: 5; }
-      .sticky-cta span { font-size: 0.9rem; color: var(--muted); }
+      .sticky-cta span { font-size: 0.85rem; line-height: 1.3; color: var(--muted); }
+      .sticky-cta .btn { white-space: nowrap; flex: 0 0 auto; }
       footer.site { padding-bottom: 96px; }
     }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } .btn:hover { transform: none; } }
@@ -210,8 +228,12 @@
         <h1>Място, където можете да говорите <em class="soft">спокойно</em>.</h1>
         <p class="lead">Професионални онлайн консултации, които ще Ви помогнат да преодолеете тревожността, да управлявате трудните емоции и да освободите напрежението, което Ви задържа.</p>
         <div class="hero-cta">
-          <a class="btn" href="#zapis">Изберете час <span aria-hidden="true">→</span></a>
-          <p class="price-line"><strong>35 €</strong> за 50 минути онлайн</p>
+          <div class="cta-row">
+            <a class="btn viber" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 2C8.9 2 4.3 2.6 2.8 6c-.6 1.4-.8 3-.8 5.1 0 2.1.2 3.7.8 5.1.5 1.2 1.5 2.1 2.7 2.6v2.6c0 .5.6.8 1 .4l2-2c.3 0 .6.1 1 .1 3.6 0 8.2-.6 9.7-4 .6-1.4.8-3 .8-5.1 0-2.1-.2-3.7-.8-5.1C20.7 2.6 16.1 2 12.5 2zm0 1.4c3.4 0 7.3.5 8.4 3.2.5 1.1.6 2.5.6 4.5s-.1 3.4-.6 4.5c-1.1 2.7-5 3.2-8.4 3.2-.4 0-.9 0-1.3-.1l-.4-.1-.3.3-1.4 1.4v-1.9l-.5-.2c-1.1-.4-1.9-1-2.3-2C5.5 15 5.4 13.6 5.4 11.6S5.5 8.2 6 7.1c1.1-2.7 5-3.2 8.4-3.2h-1.9zm.2 2.3c-.2 0-.3.1-.3.3s.1.3.3.3c1.9 0 3.5.6 4.7 1.8s1.8 2.7 1.9 4.6c0 .2.1.3.3.3s.3-.1.3-.3c0-2-.7-3.7-2-5S14.8 5.7 12.7 5.7zm.1 1.8c-.2 0-.3.1-.3.3s.1.3.3.3c1.2.1 2.1.5 2.8 1.2s1 1.6 1.1 2.8c0 .2.1.3.3.3s.3-.2.3-.3c-.1-1.3-.5-2.4-1.3-3.2S14 7.6 12.8 7.5zm-4.3.4c-.2-.1-.4-.1-.6 0l-.7.3c-.4.2-.7.6-.7 1 0 1.7.7 3.3 1.9 4.6 1.2 1.3 2.7 2.2 4.4 2.4.5.1.9-.2 1.1-.6l.3-.7c.1-.2 0-.5-.2-.6l-1.5-.9c-.2-.1-.4-.1-.6.1l-.4.5c-.1.1-.2.1-.3.1-.9-.4-1.6-1-2-1.9-.1-.1 0-.3.1-.4l.4-.4c.2-.2.2-.4.1-.6l-.8-1.5zm4.4.6c-.2 0-.3.1-.3.3s.1.3.3.3c.6.1 1 .5 1.1 1.1 0 .2.2.3.3.3.2 0 .3-.2.3-.3-.1-.9-.7-1.5-1.7-1.6z"/></svg>Пишете ми във Viber</a>
+            <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в WhatsApp</a>
+          </div>
+          <p class="viber-hint">Ако нямате Viber на този компютър: <a href="tel:+359885980148">+359 885 980 148</a></p>
+          <p class="price-line"><strong>35 €</strong> за 50 минути онлайн · <a href="#zapis">или запазете и платете онлайн</a></p>
         </div>
         <div class="creds">
           <div class="cred-group">
@@ -295,16 +317,18 @@
         <div class="book-main">
           <p class="eyebrow">Онлайн консултация</p>
           <p class="total">35 € <small>50 минути онлайн</small></p>
-          <p class="note">Платете онлайн и след плащането ще се свържа с Вас, за да уточним удобен ден и час.</p>
-          <a class="btn" href="https://book.stripe.com/6oU6oIcoL2NobQM6nPawo00" onclick="if(window.fbq){fbq('track','InitiateCheckout',{value:35,currency:'EUR'});fbq('trackCustom','PaymentMethod',{method:'card'});}">Запишете и платете онлайн&nbsp;·&nbsp;35&nbsp;€</a>
-          <p class="note">Плащате сигурно с карта. Предпочитате първо да говорим? Обадете се: <a href="tel:+359885980148">088 598 0148</a></p>
+          <div class="cta-row">
+            <a class="btn viber" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 2C8.9 2 4.3 2.6 2.8 6c-.6 1.4-.8 3-.8 5.1 0 2.1.2 3.7.8 5.1.5 1.2 1.5 2.1 2.7 2.6v2.6c0 .5.6.8 1 .4l2-2c.3 0 .6.1 1 .1 3.6 0 8.2-.6 9.7-4 .6-1.4.8-3 .8-5.1 0-2.1-.2-3.7-.8-5.1C20.7 2.6 16.1 2 12.5 2zm0 1.4c3.4 0 7.3.5 8.4 3.2.5 1.1.6 2.5.6 4.5s-.1 3.4-.6 4.5c-1.1 2.7-5 3.2-8.4 3.2-.4 0-.9 0-1.3-.1l-.4-.1-.3.3-1.4 1.4v-1.9l-.5-.2c-1.1-.4-1.9-1-2.3-2C5.5 15 5.4 13.6 5.4 11.6S5.5 8.2 6 7.1c1.1-2.7 5-3.2 8.4-3.2h-1.9zm.2 2.3c-.2 0-.3.1-.3.3s.1.3.3.3c1.9 0 3.5.6 4.7 1.8s1.8 2.7 1.9 4.6c0 .2.1.3.3.3s.3-.1.3-.3c0-2-.7-3.7-2-5S14.8 5.7 12.7 5.7zm.1 1.8c-.2 0-.3.1-.3.3s.1.3.3.3c1.2.1 2.1.5 2.8 1.2s1 1.6 1.1 2.8c0 .2.1.3.3.3s.3-.2.3-.3c-.1-1.3-.5-2.4-1.3-3.2S14 7.6 12.8 7.5zm-4.3.4c-.2-.1-.4-.1-.6 0l-.7.3c-.4.2-.7.6-.7 1 0 1.7.7 3.3 1.9 4.6 1.2 1.3 2.7 2.2 4.4 2.4.5.1.9-.2 1.1-.6l.3-.7c.1-.2 0-.5-.2-.6l-1.5-.9c-.2-.1-.4-.1-.6.1l-.4.5c-.1.1-.2.1-.3.1-.9-.4-1.6-1-2-1.9-.1-.1 0-.3.1-.4l.4-.4c.2-.2.2-.4.1-.6l-.8-1.5zm4.4.6c-.2 0-.3.1-.3.3s.1.3.3.3c.6.1 1 .5 1.1 1.1 0 .2.2.3.3.3.2 0 .3-.2.3-.3-.1-.9-.7-1.5-1.7-1.6z"/></svg>Пишете ми във Viber</a>
+            <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в WhatsApp</a>
+          </div>
+          <p class="viber-hint">Ако нямате Viber на този компютър: <a href="tel:+359885980148">+359 885 980 148</a></p>
+          <p class="note">Предпочитате първо да говорим? Обадете се: <a href="tel:+359885980148">088 598 0148</a></p>
         </div>
         <aside class="book-side">
-          <p class="eyebrow">Или ми пишете</p>
-          <div class="chat-btns">
-            <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в WhatsApp</a>
-            <a class="chat vb" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><i aria-hidden="true"></i>Пишете ми във Viber</a>
-          </div>
+          <p class="eyebrow">или запазете и платете онлайн</p>
+          <p class="note">Платете онлайн и след плащането ще се свържа с Вас, за да уточним удобен ден и час.</p>
+          <a class="btn ghost" href="https://book.stripe.com/6oU6oIcoL2NobQM6nPawo00" onclick="if(window.fbq){fbq('trackCustom','PaymentMethod',{method:'card'});}">Запишете и платете онлайн&nbsp;·&nbsp;35&nbsp;€</a>
+          <p class="note">Плащате сигурно с карта.</p>
           <dl>
             <dt>Работно време</dt><dd>Всеки ден, 7:00–19:00</dd>
             <dt>Часова зона</dt><dd>българско време</dd>
@@ -332,12 +356,12 @@
     <section class="block closing">
       <h2>Първата стъпка често е най-трудната.</h2>
       <p>Не е нужно да знаете какво точно да кажете. Достатъчно е да дойдете.</p>
-      <a class="btn" href="#zapis">Изберете час <span aria-hidden="true">→</span></a>
-      <p>Или ми пишете, ако имате въпрос:</p>
-      <div class="chat-btns">
-        <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>WhatsApp</a>
-        <a class="chat vb" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><i aria-hidden="true"></i>Viber</a>
+      <div class="cta-row">
+        <a class="btn viber" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 2C8.9 2 4.3 2.6 2.8 6c-.6 1.4-.8 3-.8 5.1 0 2.1.2 3.7.8 5.1.5 1.2 1.5 2.1 2.7 2.6v2.6c0 .5.6.8 1 .4l2-2c.3 0 .6.1 1 .1 3.6 0 8.2-.6 9.7-4 .6-1.4.8-3 .8-5.1 0-2.1-.2-3.7-.8-5.1C20.7 2.6 16.1 2 12.5 2zm0 1.4c3.4 0 7.3.5 8.4 3.2.5 1.1.6 2.5.6 4.5s-.1 3.4-.6 4.5c-1.1 2.7-5 3.2-8.4 3.2-.4 0-.9 0-1.3-.1l-.4-.1-.3.3-1.4 1.4v-1.9l-.5-.2c-1.1-.4-1.9-1-2.3-2C5.5 15 5.4 13.6 5.4 11.6S5.5 8.2 6 7.1c1.1-2.7 5-3.2 8.4-3.2h-1.9zm.2 2.3c-.2 0-.3.1-.3.3s.1.3.3.3c1.9 0 3.5.6 4.7 1.8s1.8 2.7 1.9 4.6c0 .2.1.3.3.3s.3-.1.3-.3c0-2-.7-3.7-2-5S14.8 5.7 12.7 5.7zm.1 1.8c-.2 0-.3.1-.3.3s.1.3.3.3c1.2.1 2.1.5 2.8 1.2s1 1.6 1.1 2.8c0 .2.1.3.3.3s.3-.2.3-.3c-.1-1.3-.5-2.4-1.3-3.2S14 7.6 12.8 7.5zm-4.3.4c-.2-.1-.4-.1-.6 0l-.7.3c-.4.2-.7.6-.7 1 0 1.7.7 3.3 1.9 4.6 1.2 1.3 2.7 2.2 4.4 2.4.5.1.9-.2 1.1-.6l.3-.7c.1-.2 0-.5-.2-.6l-1.5-.9c-.2-.1-.4-.1-.6.1l-.4.5c-.1.1-.2.1-.3.1-.9-.4-1.6-1-2-1.9-.1-.1 0-.3.1-.4l.4-.4c.2-.2.2-.4.1-.6l-.8-1.5zm4.4.6c-.2 0-.3.1-.3.3s.1.3.3.3c.6.1 1 .5 1.1 1.1 0 .2.2.3.3.3.2 0 .3-.2.3-.3-.1-.9-.7-1.5-1.7-1.6z"/></svg>Пишете ми във Viber</a>
+        <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в WhatsApp</a>
       </div>
+      <p class="viber-hint">Ако нямате Viber на този компютър: <a href="tel:+359885980148">+359 885 980 148</a></p>
+      <p class="pay-alt"><a href="#zapis">или запазете и платете онлайн</a></p>
     </section>
   </main>
 
@@ -350,7 +374,7 @@
 
 <div class="sticky-cta">
   <span>35 € · 50 минути онлайн</span>
-  <a class="btn small" href="#zapis">Изберете час</a>
+  <a class="btn viber small" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 2C8.9 2 4.3 2.6 2.8 6c-.6 1.4-.8 3-.8 5.1 0 2.1.2 3.7.8 5.1.5 1.2 1.5 2.1 2.7 2.6v2.6c0 .5.6.8 1 .4l2-2c.3 0 .6.1 1 .1 3.6 0 8.2-.6 9.7-4 .6-1.4.8-3 .8-5.1 0-2.1-.2-3.7-.8-5.1C20.7 2.6 16.1 2 12.5 2zm0 1.4c3.4 0 7.3.5 8.4 3.2.5 1.1.6 2.5.6 4.5s-.1 3.4-.6 4.5c-1.1 2.7-5 3.2-8.4 3.2-.4 0-.9 0-1.3-.1l-.4-.1-.3.3-1.4 1.4v-1.9l-.5-.2c-1.1-.4-1.9-1-2.3-2C5.5 15 5.4 13.6 5.4 11.6S5.5 8.2 6 7.1c1.1-2.7 5-3.2 8.4-3.2h-1.9zm.2 2.3c-.2 0-.3.1-.3.3s.1.3.3.3c1.9 0 3.5.6 4.7 1.8s1.8 2.7 1.9 4.6c0 .2.1.3.3.3s.3-.1.3-.3c0-2-.7-3.7-2-5S14.8 5.7 12.7 5.7zm.1 1.8c-.2 0-.3.1-.3.3s.1.3.3.3c1.2.1 2.1.5 2.8 1.2s1 1.6 1.1 2.8c0 .2.1.3.3.3s.3-.2.3-.3c-.1-1.3-.5-2.4-1.3-3.2S14 7.6 12.8 7.5zm-4.3.4c-.2-.1-.4-.1-.6 0l-.7.3c-.4.2-.7.6-.7 1 0 1.7.7 3.3 1.9 4.6 1.2 1.3 2.7 2.2 4.4 2.4.5.1.9-.2 1.1-.6l.3-.7c.1-.2 0-.5-.2-.6l-1.5-.9c-.2-.1-.4-.1-.6.1l-.4.5c-.1.1-.2.1-.3.1-.9-.4-1.6-1-2-1.9-.1-.1 0-.3.1-.4l.4-.4c.2-.2.2-.4.1-.6l-.8-1.5zm4.4.6c-.2 0-.3.1-.3.3s.1.3.3.3c.6.1 1 .5 1.1 1.1 0 .2.2.3.3.3.2 0 .3-.2.3-.3-.1-.9-.7-1.5-1.7-1.6z"/></svg>Пишете ми във Viber</a>
 </div>
 </body>
 </html>
