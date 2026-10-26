@@ -10,6 +10,7 @@
     gtag('js', new Date());
     gtag('config', 'AW-18230799983');
   </script>
+  <script src="/js/track.js"></script>
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -21,7 +22,7 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1359305889034155');
-    fbq('track', 'PageView');
+    track('PageView');
     (function () {
       var id = new URLSearchParams(window.location.search).get('session_id');
       if (!id) return;
@@ -30,7 +31,7 @@
       try { fired = JSON.parse(localStorage.getItem(key)) || []; } catch (e) {}
       if (!Array.isArray(fired)) fired = [];
       if (fired.indexOf(id) !== -1) return;
-      fbq('track', 'Purchase', {value: 35, currency: 'EUR'}, {eventID: id});
+      track('Purchase', {value: 35, currency: 'EUR'}, id);
       fired.push(id);
       try { localStorage.setItem(key, JSON.stringify(fired.slice(-20))); } catch (e) {}
     })();
