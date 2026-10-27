@@ -171,6 +171,18 @@
     .book-side dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 0.95rem; }
     .book-side dt { color: var(--muted); }
     .book-side dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+    .chat.pay i { background: var(--lilac); }
+
+    /* Calendar */
+    .cal-block { display: grid; gap: 18px; margin-top: clamp(36px, 5vw, 56px); }
+    .cal-card { background: #FFFFFF; border: 1px solid var(--line); border-radius: 18px; padding: clamp(4px, 1.5vw, 16px); overflow: hidden; }
+    .cal-embed { width: 100%; min-height: 480px; }
+    .cal-embed iframe { display: block; width: 100% !important; max-width: 100%; }
+    .cal-block .note { color: var(--muted); font-size: 0.95rem; }
+    .pay-block { display: grid; gap: 12px; justify-items: start; margin-top: clamp(28px, 4vw, 40px); }
+    .pay-block .note { color: var(--muted); font-size: 0.95rem; }
+    .pay-block .note a { white-space: nowrap; }
+    .pay-block .note strong { color: var(--ink); font-weight: 600; }
 
     /* FAQ */
     .faq details { border-bottom: 1px solid var(--line); padding-block: 18px; }
@@ -201,6 +213,7 @@
       .cta-row .btn.viber, .cta-row .chat { width: 100%; justify-content: center; }
       .cta-row .chat { padding-block: 14px; }
       .book-side .btn { width: 100%; padding-inline: 18px; }
+      .cal-card { margin-inline: -12px; border-radius: 14px; padding: 0; }
       .hero-copy .lead { order: 1; }
       .hero-copy .creds { order: 2; }
       .sticky-cta { display: flex; position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); gap: 12px; align-items: center; justify-content: space-between; z-index: 5; }
@@ -322,18 +335,29 @@
             <a class="chat wa" href="https://wa.me/359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener"><i aria-hidden="true"></i>Пишете ми в WhatsApp</a>
           </div>
           <p class="viber-hint">Ако нямате Viber на този компютър: <a href="tel:+359885980148">+359 885 980 148</a></p>
-          <p class="note">Предпочитате първо да говорим? Обадете се: <a href="tel:+359885980148">088 598 0148</a></p>
         </div>
         <aside class="book-side">
-          <p class="eyebrow">или запазете и платете онлайн</p>
-          <p class="note">Платете онлайн и след плащането ще се свържа с Вас, за да уточним удобен ден и час.</p>
-          <a class="btn ghost" href="https://book.stripe.com/6oU6oIcoL2NobQM6nPawo00" onclick="if(window.fbq){fbq('trackCustom','PaymentMethod',{method:'card'});}">Запишете и платете онлайн&nbsp;·&nbsp;35&nbsp;€</a>
-          <p class="note">Плащате сигурно с карта.</p>
           <dl>
             <dt>Работно време</dt><dd>Всеки ден, 7:00–19:00</dd>
             <dt>Часова зона</dt><dd>българско време</dd>
           </dl>
         </aside>
+      </div>
+      <div class="cal-block">
+        <h3>Или изберете час сами</h3>
+        <div class="cal-card">
+          <div class="cal-embed" id="cal-konsultacia"></div>
+        </div>
+        <p class="note">Ако календарът не се показва: <a href="https://cal.com/onlinepsychologist/konsultacia" target="_blank" rel="noopener">Запазете час в календара</a></p>
+      </div>
+      <div class="pay-block">
+        <div class="cta-row">
+          <a class="chat pay" href="https://book.stripe.com/6oU6oIcoL2NobQM6nPawo00" onclick="if(window.fbq){fbq('trackCustom','PaymentMethod',{method:'card'});}"><i aria-hidden="true"></i>Запазете и платете онлайн&nbsp;·&nbsp;35&nbsp;€</a>
+        </div>
+        <p class="note">След плащането ще се свържа с Вас, за да уточним <strong>удобен ден и час</strong>.</p>
+        <p class="note">Плащате <strong>сигурно</strong> с карта.</p>
+        <p class="note">Предпочитате първо да говорим? Обадете се: <a href="tel:+359885980148">088 598 0148</a></p>
+        <p class="note"><a href="https://m.me/856376934234641?utm_source=site&amp;utm_medium=button&amp;utm_campaign=messenger&amp;utm_content=zapazete-chas" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});" target="_blank" rel="noopener">Пишете ми в Messenger</a></p>
       </div>
     </section>
 
@@ -376,5 +400,42 @@
   <span>35 € · 50 минути онлайн</span>
   <a class="btn viber small" href="viber://chat?number=%2B359885980148" onclick="gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 2C8.9 2 4.3 2.6 2.8 6c-.6 1.4-.8 3-.8 5.1 0 2.1.2 3.7.8 5.1.5 1.2 1.5 2.1 2.7 2.6v2.6c0 .5.6.8 1 .4l2-2c.3 0 .6.1 1 .1 3.6 0 8.2-.6 9.7-4 .6-1.4.8-3 .8-5.1 0-2.1-.2-3.7-.8-5.1C20.7 2.6 16.1 2 12.5 2zm0 1.4c3.4 0 7.3.5 8.4 3.2.5 1.1.6 2.5.6 4.5s-.1 3.4-.6 4.5c-1.1 2.7-5 3.2-8.4 3.2-.4 0-.9 0-1.3-.1l-.4-.1-.3.3-1.4 1.4v-1.9l-.5-.2c-1.1-.4-1.9-1-2.3-2C5.5 15 5.4 13.6 5.4 11.6S5.5 8.2 6 7.1c1.1-2.7 5-3.2 8.4-3.2h-1.9zm.2 2.3c-.2 0-.3.1-.3.3s.1.3.3.3c1.9 0 3.5.6 4.7 1.8s1.8 2.7 1.9 4.6c0 .2.1.3.3.3s.3-.1.3-.3c0-2-.7-3.7-2-5S14.8 5.7 12.7 5.7zm.1 1.8c-.2 0-.3.1-.3.3s.1.3.3.3c1.2.1 2.1.5 2.8 1.2s1 1.6 1.1 2.8c0 .2.1.3.3.3s.3-.2.3-.3c-.1-1.3-.5-2.4-1.3-3.2S14 7.6 12.8 7.5zm-4.3.4c-.2-.1-.4-.1-.6 0l-.7.3c-.4.2-.7.6-.7 1 0 1.7.7 3.3 1.9 4.6 1.2 1.3 2.7 2.2 4.4 2.4.5.1.9-.2 1.1-.6l.3-.7c.1-.2 0-.5-.2-.6l-1.5-.9c-.2-.1-.4-.1-.6.1l-.4.5c-.1.1-.2.1-.3.1-.9-.4-1.6-1-2-1.9-.1-.1 0-.3.1-.4l.4-.4c.2-.2.2-.4.1-.6l-.8-1.5zm4.4.6c-.2 0-.3.1-.3.3s.1.3.3.3c.6.1 1 .5 1.1 1.1 0 .2.2.3.3.3.2 0 .3-.2.3-.3-.1-.9-.7-1.5-1.7-1.6z"/></svg>Пишете ми във Viber</a>
 </div>
+
+<!-- Cal.com inline embed -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "konsultacia", { origin: "https://app.cal.com" });
+  Cal.ns.konsultacia("inline", {
+    elementOrSelector: "#cal-konsultacia",
+    calLink: "onlinepsychologist/konsultacia",
+    config: { layout: "month_view", theme: "light" }
+  });
+  Cal.ns.konsultacia("ui", {
+    theme: "light",
+    hideEventTypeDetails: false,
+    layout: "month_view",
+    cssVarsPerTheme: {
+      light: {
+        "cal-brand": "#7E5F93",
+        "cal-brand-emphasis": "#6A4F7D",
+        "cal-brand-text": "#FFFFFF",
+        "cal-bg": "#FFFFFF",
+        "cal-bg-emphasis": "#E8E0EE",
+        "cal-bg-subtle": "#F3F1F4",
+        "cal-bg-muted": "#F3F1F4",
+        "cal-text-emphasis": "#25231D",
+        "cal-border-booker": "#FFFFFF",
+        "cal-border-booker-width": "0px"
+      }
+    }
+  });
+  Cal.ns.konsultacia("on", {
+    action: "bookingSuccessful",
+    callback: function () {
+      gtag('event', 'conversion', {'send_to': 'AW-18230799983/VxHECNzB6owdEO_cj_VD'});
+      track('Schedule', { method: 'calcom' });
+    }
+  });
+</script>
 </body>
 </html>

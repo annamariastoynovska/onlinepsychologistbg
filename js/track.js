@@ -47,6 +47,7 @@
     var href = a.getAttribute('href');
     if (href.indexOf('viber://') === 0) window.track('Contact', { method: 'viber' });
     else if (href.indexOf('https://wa.me/359885980148') === 0) window.track('Contact', { method: 'whatsapp' });
+    else if (href.indexOf('https://m.me/') === 0) window.track('Contact', { method: 'messenger' });
     else if (href.indexOf('https://book.stripe.com/') === 0) window.track('InitiateCheckout', { value: 35, currency: 'EUR' });
   }, true);
 })();
