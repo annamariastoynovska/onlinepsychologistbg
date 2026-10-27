@@ -1,6 +1,6 @@
 const PIXEL_ID = '1359305889034155';
 const GRAPH_URL = `https://graph.facebook.com/v21.0/${PIXEL_ID}/events`;
-const ALLOWED_EVENTS = new Set(['PageView', 'ViewContent', 'Contact', 'InitiateCheckout', 'Purchase']);
+const ALLOWED_EVENTS = new Set(['PageView', 'ViewContent', 'Contact', 'Schedule', 'InitiateCheckout', 'Purchase']);
 const STRIPE_SESSION_ID = /^cs_(test|live)_[A-Za-z0-9]+$/;
 
 function cleanString(value, maxLength) {
